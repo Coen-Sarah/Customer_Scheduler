@@ -9,9 +9,15 @@ import java.sql.SQLException;
 
 import static DAO.Query.getResult;
 import static DAO.Query.makeQuery;
-
+/**
+ * Provides creation of User objects via access to the database
+ * */
 public class UserDAO {
 
+    /**
+     * @param userId the userId of a specific user within the database
+     * @return user - a specific user object generated from the database information
+     * */
     public static User getUser(int userId){
         User user;
 
@@ -35,6 +41,9 @@ public class UserDAO {
 
     }
 
+    /**
+     * @return - allUserss an ObservableList containing all user objects
+     * */
     public static ObservableList<User> getAllUsers(){
         ObservableList<User> allUsers = FXCollections.observableArrayList();
         User user;

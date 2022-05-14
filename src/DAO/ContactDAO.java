@@ -11,8 +11,15 @@ import java.sql.SQLException;
 import static DAO.Query.getResult;
 import static DAO.Query.makeQuery;
 
+/**
+ * Provides creation of Contact objects via access to the database
+ * */
 public class ContactDAO {
 
+    /**
+     * @param contactId the contactId of a specific contact within the database
+     * @return contact - a specific contact object generated from the database information
+     * */
     public static Contact getContact(int contactId){
 
         Contact contact;
@@ -37,6 +44,9 @@ public class ContactDAO {
 
     }
 
+    /**
+     * @return allContacts - an ObservableList containing all contact objects
+     * */
     public static ObservableList<Contact> getAllContacts(){
         ObservableList<Contact> allContacts = FXCollections.observableArrayList();
         Contact contact;

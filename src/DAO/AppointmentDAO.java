@@ -10,8 +10,15 @@ import java.sql.SQLException;
 import static DAO.Query.getResult;
 import static DAO.Query.makeQuery;
 
+/**
+ * Provides creation of Appointment objects via access to the database
+ * */
 public class AppointmentDAO {
 
+    /**
+     * @param appointmentId the appointmentId of a specific appointment within the database
+     * @return appointment - a specific appointment object generated from the database information
+     * */
     public static Appointment getAppointment(int appointmentId){
         Appointment appointment;
 
@@ -39,6 +46,9 @@ public class AppointmentDAO {
 
     }
 
+    /**
+     * @return allAppointments - an ObservableList containing all appointment objects
+     * */
     public static ObservableList<Appointment> getAllAppointments() {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
         Appointment appointment;
