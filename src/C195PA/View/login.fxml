@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="C195PA.Controller.LoginController">
+   <padding>
+      <Insets left="4.0" />
+   </padding>
+   <center>
+      <VBox prefHeight="250.0" prefWidth="570.0" style="-fx-background-color: dbdbdb;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="loginLabel" prefHeight="35.0" prefWidth="294.0" text="Login">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="usernameLabel" text="Username:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="usernameField" />
+            <Label fx:id="passwordLabel" text="Password:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <PasswordField fx:id="passwordField" />
+            <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" text="Login">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="25.0" left="150.0" right="150.0" top="25.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+         </padding>
+      </VBox>
+   </center>
+   <top>
+      <FlowPane prefHeight="11.0" prefWidth="596.0" style="-fx-background-color: dbdbdb;" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="43.0" prefWidth="445.0" />
+            <Label fx:id="timeLabel" alignment="BOTTOM_LEFT" text="Time" />
+         </children>
+      </FlowPane>
+   </top>
+</BorderPane>
