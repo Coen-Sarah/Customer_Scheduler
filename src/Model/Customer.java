@@ -25,16 +25,36 @@ public class Customer {
      * The customer phone number
      * */
     String phone;
+    /**
+     * The customer division
+     * */
+    Division division;
+    /**
+     * The customer country
+     * */
+    Country country;
 
     /**
      * Constructor to instantiate a Customer object.
      * */
-    public Customer(int customerId, String name, String address, String postalCode, String phone) {
+    public Customer(int customerId, String name, String address, String postalCode, String phone,Division division,Country country) {
         this.customerId = customerId;
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
         this.phone = phone;
+        this.division = division;
+        this.country = country;
+    }
+
+    public Customer(String name, String address, String postalCode, String phone,Division division,Country country) {
+        this.customerId = 0;
+        this.name = name;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.phone = phone;
+        this.division = division;
+        this.country = country;
     }
 
     /**
@@ -105,5 +125,25 @@ public class Customer {
      * */
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public String getFullAddress(){
+        return address + "\n" + division + " " + country;
     }
 }

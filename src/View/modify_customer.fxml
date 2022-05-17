@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ModifyCustomerController">
+   <top>
+      <FlowPane prefHeight="11.0" prefWidth="596.0" style="-fx-background-color: dbdbdb;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="logedInLabel" text="Logged in">
+               <padding>
+                  <Insets left="15.0" />
+               </padding></Label>
+            <AnchorPane prefHeight="43.0" prefWidth="589.0" />
+            <Label fx:id="timeLabel" alignment="BOTTOM_LEFT" text="Time" />
+         </children>
+      </FlowPane>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Update Customer">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="25.0" />
+               </padding>
+            </Label>
+            <Label text="Customer ID:" />
+            <TextField fx:id="customerId">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Name" />
+            <TextField fx:id="customerName">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Street Addresss" />
+            <TextField fx:id="customerAddress">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </TextField>
+            <HBox prefHeight="0.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="61.0" text="Country:" />
+                  <ComboBox fx:id="customerCountry" prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <Label prefHeight="25.0" prefWidth="47.0" text="Division:" />
+                  <ComboBox fx:id="customerDivision" prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                     </HBox.margin>
+                  </ComboBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <Label text="Postal Code" />
+            <TextField fx:id="customerPostalCode">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Phone" />
+            <TextField fx:id="customerPhone">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </TextField>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane prefHeight="35.0" prefWidth="388.0" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Save">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#toMain" prefHeight="50.0" prefWidth="75.0" text="Cancel">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="25.0" left="100.0" right="100.0" top="25.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

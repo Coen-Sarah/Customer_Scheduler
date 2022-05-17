@@ -5,7 +5,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static DAO.CustomerDAO.*;
 import static DAO.DBConnection.makeConnection;
+import static DAO.LocationsDAO.getCountries;
+import static DAO.LocationsDAO.getDivisions;
 
 public class Main extends Application {
 
@@ -13,6 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
     //TODO SWAP BACK AFTER TESTING
+
         //Parent root = FXMLLoader.load(getClass().getResource("/View/login.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("/View/main.fxml"));
 
