@@ -102,7 +102,7 @@ public class CustomerDAO {
                 "\", \""+ customer.getAddress() +
                 "\",\""+ customer.getPostalCode() +
                 "\",\""+ customer.getPhone() +
-                "\","+ customer.getDivision() +
+                "\","+ customer.getDivision().getDivisionId() +
                 ");";
 
         makeQuery(createCustomerQuery);

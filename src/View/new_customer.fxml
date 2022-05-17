@@ -28,7 +28,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="New Customer">
+            <Label text="Update Customer">
                <font>
                   <Font size="18.0" />
                </font>
@@ -37,33 +37,33 @@
                </padding>
             </Label>
             <Label text="Customer ID:" />
-            <TextField>
+            <TextField fx:id="customerId">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </TextField>
             <Label text="Name" />
-            <TextField>
+            <TextField fx:id="customerName">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </TextField>
             <Label text="Street Addresss" />
-            <TextField>
+            <TextField fx:id="customerAddress">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </TextField>
             <HBox prefHeight="0.0" prefWidth="600.0">
                <children>
-                  <Label prefHeight="57.0" prefWidth="43.0" text="Country" />
-                  <ComboBox prefWidth="150.0">
+                  <Label prefHeight="25.0" prefWidth="61.0" text="Country:" />
+                  <ComboBox fx:id="customerCountry" prefWidth="150.0">
                      <HBox.margin>
                         <Insets left="25.0" right="25.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <Label prefHeight="65.0" prefWidth="28.0" text="Label" />
-                  <ComboBox prefWidth="150.0">
+                  <Label prefHeight="25.0" prefWidth="47.0" text="Division:" />
+                  <ComboBox fx:id="customerDivision" prefWidth="150.0">
                      <HBox.margin>
                         <Insets left="25.0" right="25.0" />
                      </HBox.margin>
@@ -74,13 +74,13 @@
                </VBox.margin>
             </HBox>
             <Label text="Postal Code" />
-            <TextField>
+            <TextField fx:id="customerPostalCode">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </TextField>
             <Label text="Phone" />
-            <TextField>
+            <TextField fx:id="customerPhone">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
@@ -88,7 +88,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <AnchorPane prefHeight="35.0" prefWidth="388.0" />
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Save">
+                  <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Save">
                      <HBox.margin>
                         <Insets bottom="5.0" left="15.0" right="15.0" top="15.0" />
                      </HBox.margin>
@@ -96,7 +96,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Cancel">
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelCustomer" prefHeight="50.0" prefWidth="75.0" text="Cancel">
                      <HBox.margin>
                         <Insets bottom="5.0" left="15.0" right="15.0" top="15.0" />
                      </HBox.margin>
