@@ -46,8 +46,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Locale.setDefault(new Locale("fr"));
-        rb = ResourceBundle.getBundle("C195", Locale.getDefault());
+        rb = ResourceBundle.getBundle("C195PA", Locale.getDefault());
 
         loginLabel.setText(rb.getString("login"));
         usernameLabel.setText(rb.getString("username"));

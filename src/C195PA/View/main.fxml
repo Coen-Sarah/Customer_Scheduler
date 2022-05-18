@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="C195PA.Controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="C195PA.Controller.MainController">
    <top>
       <FlowPane prefHeight="11.0" prefWidth="596.0" style="-fx-background-color: dbdbdb;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="logedInLabel" text="Logged in">
+            <Label fx:id="loggedInLabel" text="Logged in">
                <padding>
                   <Insets left="15.0" />
                </padding>
@@ -33,8 +33,8 @@
    <center>
       <GridPane hgap="10.0" prefHeight="407.0" prefWidth="931.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" prefWidth="341.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="429.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="561.0" minWidth="10.0" prefWidth="496.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="421.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="157.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
@@ -53,13 +53,17 @@
                   <Label fx:id="notificationsLabel" prefHeight="60.0" prefWidth="443.0" text="Label" />
                </children>
             </FlowPane>
-            <TableView fx:id="appointmentsTable" prefHeight="287.0" prefWidth="204.0" GridPane.rowIndex="2">
+            <TableView fx:id="appointmentTable" prefHeight="287.0" prefWidth="204.0" GridPane.rowIndex="2">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="appointmentId" prefWidth="20.0" text="ID" />
+                <TableColumn fx:id="appointmentTitle" prefWidth="56.0" text="Title" />
+                  <TableColumn fx:id="appointmentDescription" prefWidth="164.0" text="Description" />
+                  <TableColumn fx:id="appointmentContact" prefWidth="106.0" text="People Involved" />
+                  <TableColumn fx:id="appointmentStart" prefWidth="96.0" text="Start Time" />
+                  <TableColumn fx:id="appointmentEnd" prefWidth="88.0" text="End Time" />
               </columns>
             </TableView>
-            <TableView fx:id="customerTable" prefHeight="227.0" prefWidth="471.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TableView fx:id="customerTable" prefHeight="227.0" prefWidth="429.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
               <columns>
                 <TableColumn fx:id="customerId" prefWidth="27.0" text="ID" />
                 <TableColumn fx:id="customerName" prefWidth="75.0" text="Name" />
@@ -111,17 +115,17 @@
             </HBox>
             <HBox layoutX="20.0" layoutY="93.0" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                <children>
-                  <Button fx:id="addAppointmentButton" mnemonicParsing="false" onAction="#addAppointment" prefHeight="51.0" prefWidth="107.0" text="Add&#10;Apppointment">
+                  <Button fx:id="addAppointmentButton" mnemonicParsing="false" onAction="#addAppointment" prefHeight="51.0" prefWidth="121.0" text="Add&#10;Apppointment">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="modifyAppointmentButton" mnemonicParsing="false" onAction="#modifyAppointment" prefHeight="73.0" prefWidth="108.0" text="Update&#10;Appointment">
+                  <Button fx:id="modifyAppointmentButton" mnemonicParsing="false" onAction="#modifyAppointment" prefHeight="51.0" prefWidth="128.0" text="Update&#10;Appointment">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="deleteAppointmentButton" layoutX="118.0" layoutY="15.0" mnemonicParsing="false" onAction="#deleteAppointment" prefHeight="73.0" prefWidth="108.0" text="Delete&#10;Appointment">
+                  <Button fx:id="deleteAppointmentButton" layoutX="118.0" layoutY="15.0" mnemonicParsing="false" onAction="#deleteAppointment" prefHeight="51.0" prefWidth="128.0" text="Delete&#10;Appointment">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>

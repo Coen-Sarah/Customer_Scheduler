@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
     //TODO SWAP BACK AFTER TESTING
 
-        //Parent root = FXMLLoader.load(getClass().getResource("/View/login.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/login.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/main.fxml"));
 
         primaryStage.setScene(new Scene(root));

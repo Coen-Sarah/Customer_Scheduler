@@ -126,7 +126,7 @@ public class CustomerDAO {
     /**
      * Queries the database to delete a customer
      * */
-    public static void deleteCustomer(Customer customer){
+    public static void destroyCustomer(Customer customer){
         String deleteCustomerQuery = "DELETE FROM Customers\n" +
                 "WHERE customer_id ="+ customer.getCustomerId();
         makeQuery(deleteCustomerQuery);

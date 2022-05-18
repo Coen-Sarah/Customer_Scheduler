@@ -1,6 +1,7 @@
 package C195PA.DAO;
 
 import C195PA.Model.Appointment;
+import C195PA.Model.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -24,7 +25,7 @@ public class AppointmentDAO {
 
         try {
             String getAppointmentString =
-                    "SELECT appointment_id, title, description, location, type, start, end FROM appointments " +
+                    "SELECT * FROM appointments " +
                             "WHERE appointment_Id = \""+ appointmentId +"\";";
             makeQuery(getAppointmentString);
             ResultSet appointmentResults = getResult();
@@ -36,7 +37,10 @@ public class AppointmentDAO {
                     appointmentResults.getString("location"),
                     appointmentResults.getString("type"),
                     appointmentResults.getTimestamp("start").toLocalDateTime(),
-                    appointmentResults.getTimestamp("end").toLocalDateTime());
+                    appointmentResults.getTimestamp("end").toLocalDateTime(),
+                    appointmentResults.getInt("customer_id"),
+                    appointmentResults.getInt("contact_id"),
+                    appointmentResults.getInt("user_id"));
             return appointment;
 
         } catch (SQLException e) {
@@ -54,7 +58,7 @@ public class AppointmentDAO {
         Appointment appointment;
         try {
             String getAppointmentString =
-                    "SELECT appointment_id, title, description, location, type, start, end FROM appointments";
+                    "SELECT * FROM appointments";
             makeQuery(getAppointmentString);
             ResultSet appointmentResults = getResult();
 
@@ -65,7 +69,11 @@ public class AppointmentDAO {
                         appointmentResults.getString("location"),
                         appointmentResults.getString("type"),
                         appointmentResults.getTimestamp("start").toLocalDateTime(),
-                        appointmentResults.getTimestamp("end").toLocalDateTime());
+                        appointmentResults.getTimestamp("end").toLocalDateTime(),
+                        appointmentResults.getInt("customer_id"),
+                        appointmentResults.getInt("contact_id"),
+                        appointmentResults.getInt("user_id"));
+
                 allAppointments.add(appointment);
             }
 
@@ -74,6 +82,58 @@ public class AppointmentDAO {
         }
 
         return allAppointments;
+    }
+    public static void createAppointment(Appointment Appointment){
+        String createAppointmentQuery =
+                "INSERT INTO Appointments(" +
+                        "Appointment_name," +
+                        "address," +
+                        "postal_code," +
+                        "phone," +
+                        "division_id)" +
+                        "VALUES (" +
+                        "\""+ Appointment.getTitle() +
+                        "\", \""+ Appointment.getDescription() +
+                        "\",\""+ Appointment.getLocation() +
+                        "\",\""+ Appointment.getType() +
+                        "\",\""+ Appointment.getStartTime() +
+                        "\",\""+ Appointment.getEndTime() +
+                        "\",\""+ Appointment.getContactId() +
+                        "\",\""+ Appointment.getCustomerId() +
+                        "\","+ Appointment.getUserId() +
+                        ");";
+
+        makeQuery(createAppointmentQuery);
+
+    }
+    /**
+     * Query's the database to update a appointment
+     * */
+    public static void updateAppointment(Appointment appointment){
+        String updateAppointmentQuery =
+                "UPDATE Appointments SET " +
+                        "title = \""+appointment.getTitle()+ "\",\n" +
+                        "description = \""+appointment.getDescription()+ "\",\n" +
+                        "location = \""+appointment.getLocation()+ "\",\n" +
+                        "type = \"" + appointment.getType()+ "\",\n" +
+                        "type = \"" + appointment.getStartTime()+ "\",\n" +
+                        "type = \"" + appointment.getStartTime()+ "\",\n" +
+                        "contact_id = \"" + appointment.getContactId()+ "\",\n" +
+                        "user_id = \"" + appointment.getUserId()+ "\",\n" +
+                        "customer_id = " + appointment.getCustomerId()+ " " +
+                        "WHERE Appointment_id = " + appointment.getAppointmentId() +";";
+        System.out.println(updateAppointmentQuery);
+        makeQuery(updateAppointmentQuery);
+    }
+
+
+    /**
+     * Queries the database to delete a Appointment
+     * */
+    public static void destroyAppointment(Appointment appointment){
+        String deleteAppointmentQuery = "DELETE FROM Appointments\n" +
+                "WHERE appointment_id ="+ appointment.getAppointmentId();
+        makeQuery(deleteAppointmentQuery);
     }
 }
 
