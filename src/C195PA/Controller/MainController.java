@@ -59,13 +59,13 @@ public class MainController implements Initializable {
     public ObservableList<Appointment> allAppointments;
     public ObservableList<Customer> allCustomers;
     public static Customer selectedCustomer;
-    public static Appointment selecteAppointment;
+    public static Appointment selectedAppointment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         clock = new Timeline(new KeyFrame(Duration.ZERO, e ->
-                timeLabel.setText(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/YYYY HH:mm ZZZZ")))
+                timeLabel.setText(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/YYYY hh:mm a ZZZZ")))
         ),
                 new KeyFrame(Duration.seconds(1))
         );
@@ -149,14 +149,14 @@ public class MainController implements Initializable {
         return selectedCustomer;
     }
 
-    public static Appointment getSelecteAppointment(){
-        return selecteAppointment;
+    public static Appointment getSelectedAppointment(){
+        return selectedAppointment;
     }
 
     public void modifyAppointment(ActionEvent event) {
         try{
-            selecteAppointment = (Appointment) appointmentTable.getSelectionModel().getSelectedItem();
-            if(allAppointments.contains(selecteAppointment)) {
+            selectedAppointment = (Appointment) appointmentTable.getSelectionModel().getSelectedItem();
+            if(allAppointments.contains(selectedAppointment)) {
                 Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/modify_appointment.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
@@ -173,6 +173,18 @@ public class MainController implements Initializable {
     }
 
     public void addAppointment(ActionEvent event) {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/new_appointment.fxml"));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void deleteAppointment(ActionEvent event) {
@@ -181,15 +193,15 @@ public class MainController implements Initializable {
         if(allAppointments.contains(selectedAppointment)) {
 
             Alert deleteCustomerAlert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete " +
-                    selectedAppointment.getTitle() + "?");
+                    selectedAppointment.getTitle() + ", appointment ID: "+ selectedAppointment.getAppointmentId() +"?");
             Optional<ButtonType> userInput = deleteCustomerAlert.showAndWait();
             if (userInput.isPresent() && userInput.get() == ButtonType.OK) {
                 destroyAppointment(selectedAppointment);
             }
-            customerTable.setItems(getAllCustomers());
+            appointmentTable.setItems(getAllAppointments());
 
         }else {
-            Alert alert = new Alert(Alert.AlertType.ERROR,"Please select a customer to delete.");
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Please select an appointment to delete.");
             alert.show();
         }
     }

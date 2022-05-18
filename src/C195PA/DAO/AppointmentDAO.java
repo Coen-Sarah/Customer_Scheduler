@@ -1,7 +1,6 @@
 package C195PA.DAO;
 
 import C195PA.Model.Appointment;
-import C195PA.Model.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -41,6 +40,7 @@ public class AppointmentDAO {
                     appointmentResults.getInt("customer_id"),
                     appointmentResults.getInt("contact_id"),
                     appointmentResults.getInt("user_id"));
+
             return appointment;
 
         } catch (SQLException e) {
@@ -73,7 +73,7 @@ public class AppointmentDAO {
                         appointmentResults.getInt("customer_id"),
                         appointmentResults.getInt("contact_id"),
                         appointmentResults.getInt("user_id"));
-
+                System.out.println(appointmentResults.getTimestamp("start").toLocalDateTime());
                 allAppointments.add(appointment);
             }
 
@@ -83,24 +83,29 @@ public class AppointmentDAO {
 
         return allAppointments;
     }
-    public static void createAppointment(Appointment Appointment){
+    public static void createAppointment(Appointment appointment){
+        System.out.println("HERE --->>> " + appointment.getStartTime());
         String createAppointmentQuery =
                 "INSERT INTO Appointments(" +
-                        "Appointment_name," +
-                        "address," +
-                        "postal_code," +
-                        "phone," +
-                        "division_id)" +
+                        "title," +
+                        "description," +
+                        "location," +
+                        "type," +
+                        "start," +
+                        "end," +
+                        "contact_id," +
+                        "customer_id," +
+                        "user_id)" +
                         "VALUES (" +
-                        "\""+ Appointment.getTitle() +
-                        "\", \""+ Appointment.getDescription() +
-                        "\",\""+ Appointment.getLocation() +
-                        "\",\""+ Appointment.getType() +
-                        "\",\""+ Appointment.getStartTime() +
-                        "\",\""+ Appointment.getEndTime() +
-                        "\",\""+ Appointment.getContactId() +
-                        "\",\""+ Appointment.getCustomerId() +
-                        "\","+ Appointment.getUserId() +
+                        "\""+ appointment.getTitle() +
+                        "\", \""+ appointment.getDescription() +
+                        "\",\""+ appointment.getLocation() +
+                        "\",\""+ appointment.getType() +
+                        "\",\""+ appointment.getStartTime() +
+                        "\",\""+ appointment.getEndTime() +
+                        "\",\""+ appointment.getContactId() +
+                        "\",\""+ appointment.getCustomerId() +
+                        "\","+ appointment.getUserId() +
                         ");";
 
         makeQuery(createAppointmentQuery);
@@ -116,8 +121,8 @@ public class AppointmentDAO {
                         "description = \""+appointment.getDescription()+ "\",\n" +
                         "location = \""+appointment.getLocation()+ "\",\n" +
                         "type = \"" + appointment.getType()+ "\",\n" +
-                        "type = \"" + appointment.getStartTime()+ "\",\n" +
-                        "type = \"" + appointment.getStartTime()+ "\",\n" +
+                        "start = \"" + appointment.getStartTime()+ "\",\n" +
+                        "end = \"" + appointment.getEndTime()+ "\",\n" +
                         "contact_id = \"" + appointment.getContactId()+ "\",\n" +
                         "user_id = \"" + appointment.getUserId()+ "\",\n" +
                         "customer_id = " + appointment.getCustomerId()+ " " +

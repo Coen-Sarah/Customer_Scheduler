@@ -67,4 +67,9 @@ public class Contact {
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
+
+    /**
+     * @return the contact name
+     * */
+    public String toString(){ return name; }
 }

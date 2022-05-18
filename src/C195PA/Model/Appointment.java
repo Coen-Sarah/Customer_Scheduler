@@ -64,7 +64,12 @@ public class Appointment {
         this.type = type;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.customerId = customerId;
+        this.contactId = contactId;
+        this.userId = userId;
     }
+
+
 
     /**
      * @return the appointmentID
@@ -77,7 +82,7 @@ public class Appointment {
      * @param appointmentId sets the appointmentID
      * */
     public void setAppointmentId(int appointmentId) {
-        appointmentId = appointmentId;
+        this.appointmentId = appointmentId;
     }
 
     /**
@@ -203,16 +208,12 @@ public class Appointment {
     }
 
     public String getFormattedStartTime(){
-        ZonedDateTime utcTime = startTime.atZone(ZoneId.of("UTC"));
-        ZonedDateTime userZonedTime = utcTime.withZoneSameInstant(ZoneId.systemDefault());
-        String formattedStartTime = userZonedTime.format(DateTimeFormatter.ofPattern("MM/dd/YY\nHH:mm zz"));
+        String formattedStartTime = startTime.format(DateTimeFormatter.ofPattern("MM/dd/YY\nhh:mm a"));
 
         return formattedStartTime;
     }
     public String getFormattedEndTime(){
-        ZonedDateTime utcTime = endTime.atZone(ZoneId.of("UTC"));
-        ZonedDateTime userZonedTime = utcTime.withZoneSameInstant(ZoneId.systemDefault());
-        String formattedEndTime = userZonedTime.format(DateTimeFormatter.ofPattern("MM/dd/YY\nHH:mm zz"));
+        String formattedEndTime = endTime.format(DateTimeFormatter.ofPattern("MM/dd/YY\nhh:mm a"));
 
         return formattedEndTime;
     }
