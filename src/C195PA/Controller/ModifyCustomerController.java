@@ -8,10 +8,15 @@ import java.util.ResourceBundle;
 
 import static C195PA.Controller.MainController.getSelectedCustomer;
 import static C195PA.DAO.LocationsDAO.getCountries;
-
+/**
+ * Provides access to the Modify Customer page
+ * */
 public class ModifyCustomerController extends CustomerController {
     public Customer customer;
 
+    /**
+     * Initializes the Update Customer page and sets the saveButton action.
+     * */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url,resourceBundle);
         customer = getSelectedCustomer();
@@ -23,6 +28,9 @@ public class ModifyCustomerController extends CustomerController {
         });
     }
 
+    /**
+     * Inserts the selected Customer's information into the update form
+     * */
     private void fillCustomerData() {
 
         customerId.setText(String.valueOf(customer.getCustomerId()));

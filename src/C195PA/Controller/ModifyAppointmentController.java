@@ -10,9 +10,15 @@ import java.util.ResourceBundle;
 import static C195PA.Controller.MainController.getSelectedAppointment;
 import static C195PA.DAO.ContactDAO.getContact;
 
+/**
+ * Provides access to the Modify Appointments page
+ * */
 public class ModifyAppointmentController extends AppointmentController  {
     Appointment appointment;
 
+    /**
+     * Initializes the Update Appointment page and sets the saveButton action.
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url,resourceBundle);
@@ -23,6 +29,9 @@ public class ModifyAppointmentController extends AppointmentController  {
         });
     }
 
+    /**
+     * Inserts the selected Appointment's information into the update form
+     * */
     private void fillAppointmentData() {
         appointmentId.setText(String.valueOf(appointment.getAppointmentId()));
         appointmentTitle.setText(appointment.getTitle());
