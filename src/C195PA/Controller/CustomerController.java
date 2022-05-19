@@ -1,5 +1,6 @@
 package C195PA.Controller;
 
+import C195PA.Model.Contact;
 import C195PA.Model.Country;
 import C195PA.Model.Customer;
 import C195PA.Model.Division;
@@ -80,26 +81,64 @@ public class CustomerController extends HeaderController implements Initializabl
             e.printStackTrace();
         }
     }
-    public void saveCustomer(boolean newCustomer,ActionEvent event){
-
-        Division division = (Division) customerDivision.getSelectionModel().getSelectedItem();
-        Country country = (Country) customerCountry.getSelectionModel().getSelectedItem();
-        Customer customer = new Customer(customerName.getText(),
-                customerAddress.getText(),
-                customerPostalCode.getText(),
-                customerPhone.getText(),
-                division,
-                country);
-        if(newCustomer) {
-            createCustomer(customer);
-            try{ toMain(event);}
-            catch(IOException ioe){ioe.printStackTrace();}
-        }else{
-            System.out.println("Saving Customer");
-            customer.setCustomerId(Integer.parseInt(customerId.getText()));
-            updateCustomer(customer);
-            try{ toMain(event);}
-            catch(IOException ioe){ioe.printStackTrace();}
+    public void saveCustomer(boolean newCustomer,ActionEvent event) {
+        if (allValidTextFields()) {
+            Division division = (Division) customerDivision.getSelectionModel().getSelectedItem();
+            Country country = (Country) customerCountry.getSelectionModel().getSelectedItem();
+            Customer customer = new Customer(customerName.getText(),
+                    customerAddress.getText(),
+                    customerPostalCode.getText(),
+                    customerPhone.getText(),
+                    division,
+                    country);
+            if (newCustomer) {
+                createCustomer(customer);
+                try {
+                    toMain(event);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            } else {
+                System.out.println("Saving Customer");
+                customer.setCustomerId(Integer.parseInt(customerId.getText()));
+                updateCustomer(customer);
+                try {
+                    toMain(event);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
         }
+    }
+
+    private boolean allValidTextFields() {
+        boolean allValidTextFields = true;
+        String allTextInput[] = new String[4];
+        try {
+            allTextInput = new String[]{
+                    customerName.getText(),
+                    customerAddress.getText(),
+                    customerPostalCode.getText(),
+                    customerPhone.getText()
+            };
+            ((Country) customerCountry.getSelectionModel().getSelectedItem()).getCountryId();
+            ((Division) customerDivision.getSelectionModel().getSelectedItem()).getDivisionId();
+        } catch (NullPointerException nPointE){
+            Alert missingLocationAlert = new Alert(Alert.AlertType.ERROR,"Please select both a country and a division.");
+            allValidTextFields = false;
+            missingLocationAlert.show();
+            return allValidTextFields;
+        }
+        for(int i = 0; i < allTextInput.length; i++){
+            if(allTextInput[i].isBlank()){
+                allValidTextFields = false;
+            }
+        }
+
+        if(!allValidTextFields){
+            Alert emptyTextFields = new Alert(Alert.AlertType.ERROR,"Please fill out all fields.");
+            emptyTextFields.show();
+        }
+        return allValidTextFields;
     }
 }

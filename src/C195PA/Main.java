@@ -30,6 +30,7 @@ public class Main extends Application {
      * Launches the entire application;
      * */
     public static void main(String[] args) {
+
         try {
             makeConnection();
         }catch(Exception ex){
@@ -39,6 +40,7 @@ public class Main extends Application {
         launch(args);
         Platform.exit();
     }
+
 
 
 }
