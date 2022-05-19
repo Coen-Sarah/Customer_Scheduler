@@ -21,7 +21,7 @@
                <padding>
                   <Insets left="15.0" />
                </padding></Label>
-            <AnchorPane prefHeight="43.0" prefWidth="589.0" />
+            <AnchorPane prefHeight="43.0" prefWidth="389.0" />
             <Label fx:id="timeLabel" alignment="BOTTOM_LEFT" text="Time" />
          </children>
       </FlowPane>

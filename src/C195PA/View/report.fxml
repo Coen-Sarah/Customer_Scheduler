@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="C195PA.Controller.ReportController">
+   <top>
+      <FlowPane prefHeight="11.0" prefWidth="596.0" style="-fx-background-color: dbdbdb;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="loggedInLabel" text="Logged in">
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </Label>
+            <AnchorPane prefHeight="43.0" prefWidth="589.0" />
+            <Label fx:id="timeLabel" alignment="BOTTOM_LEFT" text="Time" />
+         </children>
+      </FlowPane>
+   </top>
+   <center>
+      <Accordion BorderPane.alignment="CENTER">
+        <panes>
+          <TitledPane animated="false" text="All Appointments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="appointmentReport" layoutX="75.0" layoutY="4.0" prefHeight="146.0" prefWidth="725.0">
+                          <columns>
+                            <TableColumn fx:id="appointmentMonth" prefWidth="132.0" text="Appointment Month" />
+                            <TableColumn fx:id="appointmentType" prefWidth="452.0" text="Appointment Type" />
+                              <TableColumn fx:id="appointmentCount" prefWidth="140.0" text="Appointment Count" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="Contact Schedules">
+               <content>
+                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab fx:id="contactOne" text="Anika Costa">
+                        <content>
+                          <AnchorPane fx:id="contactOne" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="contactOneTable" layoutX="43.0" layoutY="10.0" prefHeight="110.0" prefWidth="814.0">
+                                      <columns>
+                                        <TableColumn fx:id="oneAppointmentId" prefWidth="106.0" text="Appointment ID" />
+                                        <TableColumn fx:id="oneTitle" prefWidth="129.0" text="Title" />
+                                          <TableColumn fx:id="oneDescription" prefWidth="338.0" text="Description" />
+                                          <TableColumn fx:id="oneCustomerId" prefWidth="91.0" text="Customer ID" />
+                                          <TableColumn fx:id="oneStart" prefWidth="76.0" text="Start" />
+                                          <TableColumn fx:id="oneEnd" prefWidth="72.0" text="End" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab fx:id="contactTwo" text="Daniel Garcia">
+                           <content>
+                              <AnchorPane fx:id="contactOne1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="contactTwoTable" layoutX="43.0" layoutY="10.0" prefHeight="110.0" prefWidth="814.0">
+                                       <columns>
+                                          <TableColumn fx:id="twoAppointmentId" prefWidth="101.0" text="Appointment ID" />
+                                          <TableColumn fx:id="twoTitle" prefWidth="134.0" text="Title" />
+                                          <TableColumn fx:id="twoDescription" prefWidth="338.0" text="Description" />
+                                          <TableColumn fx:id="twoCustomerId" prefWidth="91.0" text="Customer ID" />
+                                          <TableColumn fx:id="twoStart" prefWidth="76.0" text="Start" />
+                                          <TableColumn fx:id="twoEnd" prefWidth="72.0" text="End" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                      </Tab>
+                        <Tab fx:id="contactThree" text="Li Lee">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                           <content>
+                              <AnchorPane fx:id="contactOne11" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="contactThreeTable" layoutX="43.0" layoutY="10.0" prefHeight="110.0" prefWidth="814.0">
+                                       <columns>
+                                          <TableColumn fx:id="threeAppointmentId" prefWidth="105.0" text="Appointment ID" />
+                                          <TableColumn fx:id="threeTitle" prefWidth="130.0" text="Title" />
+                                          <TableColumn fx:id="threeDescription" prefWidth="338.0" text="Description" />
+                                          <TableColumn fx:id="threeCustomerId" prefWidth="91.0" text="Customer ID" />
+                                          <TableColumn fx:id="threeStart" prefWidth="76.0" text="Start" />
+                                          <TableColumn fx:id="threeEnd" prefWidth="72.0" text="End" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+               </content></TitledPane>
+          <TitledPane animated="false" text="Canceled Appointments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="canceledAppointments" layoutX="20.0" layoutY="16.0" prefHeight="200.0" prefWidth="861.0">
+                          <columns>
+                            <TableColumn fx:id="appointmentId" prefWidth="103.0" text="Appointment ID" />
+                            <TableColumn fx:id="appointmentTitle" prefWidth="81.0" text="Title" />
+                              <TableColumn fx:id="appointmentDescription" prefWidth="274.0" text="Description" />
+                              <TableColumn fx:id="startTime" minWidth="0.0" prefWidth="82.0" text="Start Time" />
+                              <TableColumn fx:id="endTime" prefWidth="83.0" text="End Time" />
+                              <TableColumn fx:id="customerId" prefWidth="84.0" text="Customer ID" />
+                              <TableColumn fx:id="contactId" prefWidth="78.0" text="Contact ID" />
+                              <TableColumn fx:id="userId" prefWidth="75.0" text="User ID" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
+            </content>
+          </TitledPane>
+        </panes>
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </padding>
+      </Accordion>
+   </center>
+   <bottom>
+      <Button fx:id="toMainButton" mnemonicParsing="false" onAction="#toMain" prefHeight="50.0" prefWidth="117.0" text="Return to Main" BorderPane.alignment="BASELINE_RIGHT">
+         <BorderPane.margin>
+            <Insets bottom="25.0" right="50.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>

@@ -13,6 +13,7 @@ public class ModifyCustomerController extends CustomerController {
     public Customer customer;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        super.initialize(url,resourceBundle);
         customer = getSelectedCustomer();
         fillCustomerData();
         saveButton.setOnAction((ActionEvent event) ->{

@@ -14,6 +14,7 @@ Users should launch the application.
 Users should login to the application using the username and password provided by their ID team.
 From there users can add, remove, and modify customer data on the right, or view and manage their upcoming appointments on the left.
 
-•  directions for how to run the program
-•  a description of the additional report of your choice you ran in part A3f
-
+Report Information
+The "Report" button will direct the user to the report generating screen.
+There are the two standard reports and a third additional report.
+The third report allows for users to see a list of canceled appointments by date.

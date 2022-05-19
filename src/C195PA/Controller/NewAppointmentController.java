@@ -15,8 +15,9 @@ public class NewAppointmentController extends AppointmentController  {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url,resourceBundle);
+        //TODO LAMBA DOCUMENTATION
         saveButton.setOnAction((ActionEvent event) ->{
-            saveAppointment(false,event);
+            saveAppointment(true,event);
         });
     }
 

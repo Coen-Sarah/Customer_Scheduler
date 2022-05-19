@@ -4,6 +4,7 @@ import C195PA.Model.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -136,9 +137,27 @@ public class AppointmentDAO {
      * Queries the database to delete a Appointment
      * */
     public static void destroyAppointment(Appointment appointment){
+        reportDeletedAppointment(appointment);
         String deleteAppointmentQuery = "DELETE FROM Appointments\n" +
                 "WHERE appointment_id ="+ appointment.getAppointmentId();
         makeQuery(deleteAppointmentQuery);
+    }
+
+    public static void reportDeletedAppointment(Appointment appointment){
+        String appointmentDelete =
+                "Appointment:: " + appointment.getTitle() + "::ID::" + appointment.getAppointmentId() +
+                "::Description::" + appointment.getDescription() + " ::Start::" + appointment.getStartTime() +
+                "::End::" + appointment.getEndTime() + "::Customer ID::" + appointment.getCustomerId() +
+                "::Contact ID::" + appointment.getContactId() + "::User ID::" + appointment.getUserId() +"\n";
+        try{
+            File file = new File("canceledAppointments.txt");
+            if (file.createNewFile()){}
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+            out.println(appointmentDelete);
+            out.close();
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 }
 

@@ -43,14 +43,25 @@
             <RowConstraints maxHeight="287.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <FlowPane hgap="5.0" prefHeight="43.0" prefWidth="596.0" style="-fx-border-style: solid;" GridPane.columnSpan="2">
+            <FlowPane hgap="5.0" prefHeight="67.0" prefWidth="768.0" GridPane.columnSpan="2">
                <children>
                   <Label alignment="CENTER" prefHeight="59.0" prefWidth="92.0" text="Notifications:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="notificationsLabel" prefHeight="60.0" prefWidth="443.0" text="Label" />
+                  <Label fx:id="notificationsLabel" prefHeight="60.0" prefWidth="783.0" style="-fx-border-style: solid;" text="Label">
+                     <FlowPane.margin>
+                        <Insets />
+                     </FlowPane.margin>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding></Label>
+                  <Button fx:id="reportButton" mnemonicParsing="false" onAction="#toReport" prefHeight="60.0" prefWidth="74.0" text="To Reports">
+                     <FlowPane.margin>
+                        <Insets left="15.0" />
+                     </FlowPane.margin>
+                  </Button>
                </children>
             </FlowPane>
             <TableView fx:id="appointmentTable" prefHeight="287.0" prefWidth="204.0" GridPane.rowIndex="2">
@@ -100,17 +111,17 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="weekRadio" mnemonicParsing="false" prefHeight="38.0" prefWidth="87.0" text="This Week">
+                  <RadioButton fx:id="weekRadio" mnemonicParsing="false" onAction="#viewWeeksAppointments" prefHeight="38.0" prefWidth="87.0" text="This Week">
                      <toggleGroup>
                         <ToggleGroup fx:id="appointmentTime" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="monthRadio" mnemonicParsing="false" prefHeight="50.0" prefWidth="87.0" text="This Month" toggleGroup="$appointmentTime">
+                  <RadioButton fx:id="monthRadio" mnemonicParsing="false" onAction="#viewMonthsAppointments" prefHeight="50.0" prefWidth="87.0" text="This Month" toggleGroup="$appointmentTime">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
                   </RadioButton>
-                  <RadioButton fx:id="allRadio" mnemonicParsing="false" prefHeight="35.0" prefWidth="43.0" text="All" toggleGroup="$appointmentTime" />
+                  <RadioButton fx:id="allRadio" mnemonicParsing="false" onAction="#viewAllAppointments" prefHeight="35.0" prefWidth="43.0" selected="true" text="All" toggleGroup="$appointmentTime" />
                </children>
             </HBox>
             <HBox layoutX="20.0" layoutY="93.0" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">

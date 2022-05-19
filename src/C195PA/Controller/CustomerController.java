@@ -24,7 +24,7 @@ import static C195PA.DAO.CustomerDAO.updateCustomer;
 import static C195PA.DAO.LocationsDAO.getCountries;
 import static C195PA.DAO.LocationsDAO.getDivisions;
 
-public class CustomerController implements Initializable {
+public class CustomerController extends HeaderController implements Initializable {
 
     public TextField customerId;
     public TextField customerName;
@@ -42,6 +42,7 @@ public class CustomerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        generateHeader();
         allCountries = getCountries();
         customerCountry.setItems(allCountries);
 

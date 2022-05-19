@@ -27,7 +27,7 @@ import static C195PA.DAO.UserDAO.getUser;
 /**
  * Generates and controls the Login scene
  * */
-public class LoginController implements Initializable {
+public class LoginController extends HeaderController implements Initializable {
 
     public Label timeLabel;
     public Label loginLabel;
@@ -38,14 +38,15 @@ public class LoginController implements Initializable {
     public Button loginButton;
 
     public ResourceBundle rb;
-    static Timeline clock;
+
+    static User loggedInUser;
 
     /**
      * Initializes the login window and enables language localization
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        generateClock();
         rb = ResourceBundle.getBundle("C195PA", Locale.getDefault());
 
         loginLabel.setText(rb.getString("login"));
@@ -53,14 +54,6 @@ public class LoginController implements Initializable {
         passwordLabel.setText(rb.getString("password"));
         loginButton.setText(rb.getString("login"));
 
-    //TODO CITE: https://stackoverflow.com/questions/42383857/javafx-live-time-and-date
-        clock = new Timeline(new KeyFrame(Duration.ZERO, e ->
-                timeLabel.setText(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/YYYY HH:mm zz")))
-        ),
-                new KeyFrame(Duration.seconds(1))
-        );
-        clock.setCycleCount(Animation.INDEFINITE);
-        clock.play();
 
 
     }
@@ -81,6 +74,7 @@ public class LoginController implements Initializable {
             String inputPassword = passwordField.getText();
             if(input.getPassword().equals(inputPassword)){
                 loginLogger(true);
+                loggedInUser = input;
                 toMainPage(event);
             }else{
                 invalidPasswordAlert.show();
@@ -128,5 +122,9 @@ public class LoginController implements Initializable {
         }catch (IOException ioe){
             ioe.printStackTrace();
         }
+    }
+
+    public static User getLoggedInUser(){
+        return loggedInUser;
     }
 }

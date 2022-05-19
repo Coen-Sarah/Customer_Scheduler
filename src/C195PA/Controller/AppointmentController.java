@@ -25,7 +25,7 @@ import static C195PA.DAO.AppointmentDAO.createAppointment;
 import static C195PA.DAO.AppointmentDAO.updateAppointment;
 import static C195PA.DAO.ContactDAO.getAllContacts;
 
-public class AppointmentController implements Initializable {
+public class AppointmentController extends HeaderController implements Initializable {
 
     public Label loggedInLabel;
     public Label timeLabel;
@@ -61,6 +61,9 @@ public class AppointmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        generateHeader();
+        appointmentId.setText("Auto-Generated");
+        appointmentId.setDisable(true);
         setTimeComboBoxes();
 
     }
