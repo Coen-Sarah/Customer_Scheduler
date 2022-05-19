@@ -25,7 +25,7 @@ import static C195PA.DAO.AppointmentDAO.getAllAppointments;
 import static C195PA.DAO.ReportDAO.getAppointmentReport;
 import static C195PA.DAO.UserDAO.getUser;
 
-public class ReportController extends HeaderController implements Initializable {
+public class ReportController extends ApplicationController implements Initializable {
 
     public TableView appointmentReport;
     public TableColumn appointmentType;
@@ -175,15 +175,6 @@ public class ReportController extends HeaderController implements Initializable 
             ioe.printStackTrace();
         }
 
-    }
-
-    public void toMain(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/main.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
     }
 
 }

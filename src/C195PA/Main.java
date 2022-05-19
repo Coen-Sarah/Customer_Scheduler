@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static C195PA.DAO.DBConnection.closeConnection;
 import static C195PA.DAO.DBConnection.makeConnection;
 
 public class Main extends Application {
@@ -19,25 +20,25 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
     //TODO SWAP BACK AFTER TESTING
 
-        //Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/login.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/login.fxml"));
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
     /**
-     * Launches the entire application;
+     * Connects to the database and launches the entire application;
      * */
     public static void main(String[] args) {
 
         try {
             makeConnection();
+            launch(args);
+            closeConnection();
         }catch(Exception ex){
             ex.printStackTrace();
         }
 
-        launch(args);
         Platform.exit();
     }
 

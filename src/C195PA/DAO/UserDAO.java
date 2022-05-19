@@ -69,7 +69,7 @@ public class UserDAO {
     }
 
     /**
-     * @return - allUserss an ObservableList containing all user objects
+     * @return - allUsers an ObservableList containing all user objects
      * */
     public static ObservableList<User> getAllUsers(){
         ObservableList<User> allUsers = FXCollections.observableArrayList();

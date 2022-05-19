@@ -1,9 +1,6 @@
 package C195PA.Controller;
 
 import C195PA.Model.User;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,12 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.*;
 import java.net.URL;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -27,9 +21,8 @@ import static C195PA.DAO.UserDAO.getUser;
 /**
  * Generates and controls the Login scene
  * */
-public class LoginController extends HeaderController implements Initializable {
+public class LoginController extends ApplicationController implements Initializable {
 
-    public Label timeLabel;
     public Label loginLabel;
     public Label usernameLabel;
     public TextField usernameField;
@@ -38,8 +31,6 @@ public class LoginController extends HeaderController implements Initializable {
     public Button loginButton;
 
     public ResourceBundle rb;
-
-    static User loggedInUser;
 
     /**
      * Initializes the login window and enables language localization
@@ -53,8 +44,6 @@ public class LoginController extends HeaderController implements Initializable {
         usernameLabel.setText(rb.getString("username"));
         passwordLabel.setText(rb.getString("password"));
         loginButton.setText(rb.getString("login"));
-
-
 
     }
 
@@ -74,29 +63,13 @@ public class LoginController extends HeaderController implements Initializable {
             String inputPassword = passwordField.getText();
             if(input.getPassword().equals(inputPassword)){
                 loginLogger(true);
-                loggedInUser = input;
-                toMainPage(event);
+                currentUser = input;
+                toMain(event);
             }else{
                 invalidPasswordAlert.show();
                 loginLogger(false);
             }
         }
-
-    }
-
-    private void toMainPage(ActionEvent event) {
-
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/main.fxml"));
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     /**
@@ -124,7 +97,4 @@ public class LoginController extends HeaderController implements Initializable {
         }
     }
 
-    public static User getLoggedInUser(){
-        return loggedInUser;
-    }
 }

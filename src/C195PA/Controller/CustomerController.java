@@ -1,6 +1,5 @@
 package C195PA.Controller;
 
-import C195PA.Model.Contact;
 import C195PA.Model.Country;
 import C195PA.Model.Customer;
 import C195PA.Model.Division;
@@ -25,7 +24,7 @@ import static C195PA.DAO.CustomerDAO.updateCustomer;
 import static C195PA.DAO.LocationsDAO.getCountries;
 import static C195PA.DAO.LocationsDAO.getDivisions;
 
-public class CustomerController extends HeaderController implements Initializable {
+public class CustomerController extends ApplicationController implements Initializable {
 
     public TextField customerId;
     public TextField customerName;
@@ -61,26 +60,15 @@ public class CustomerController extends HeaderController implements Initializabl
         customerDivision.setItems(selectedDivisions);
     }
 
-    public void toMain(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/main.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
-    }
-
     public void cancelCustomer(ActionEvent event){
         Alert cancelAlert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to cancel without saving?");
-        try {
-            Optional<ButtonType> userInput = cancelAlert.showAndWait();
-            if (userInput.isPresent() && userInput.get() == ButtonType.OK) {
-                toMain(event);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        Optional<ButtonType> userInput = cancelAlert.showAndWait();
+        if (userInput.isPresent() && userInput.get() == ButtonType.OK) {
+            toMain(event);
         }
     }
+
     public void saveCustomer(boolean newCustomer,ActionEvent event) {
         if (allValidTextFields()) {
             Division division = (Division) customerDivision.getSelectionModel().getSelectedItem();
@@ -93,20 +81,12 @@ public class CustomerController extends HeaderController implements Initializabl
                     country);
             if (newCustomer) {
                 createCustomer(customer);
-                try {
-                    toMain(event);
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
+                toMain(event);
             } else {
                 System.out.println("Saving Customer");
                 customer.setCustomerId(Integer.parseInt(customerId.getText()));
                 updateCustomer(customer);
-                try {
-                    toMain(event);
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
+                toMain(event);
             }
         }
     }
@@ -121,8 +101,8 @@ public class CustomerController extends HeaderController implements Initializabl
                     customerPostalCode.getText(),
                     customerPhone.getText()
             };
-            ((Country) customerCountry.getSelectionModel().getSelectedItem()).getCountryId();
-            ((Division) customerDivision.getSelectionModel().getSelectedItem()).getDivisionId();
+            int country = ((Country) customerCountry.getSelectionModel().getSelectedItem()).getCountryId();
+            int division = ((Division) customerDivision.getSelectionModel().getSelectedItem()).getDivisionId();
         } catch (NullPointerException nPointE){
             Alert missingLocationAlert = new Alert(Alert.AlertType.ERROR,"Please select both a country and a division.");
             allValidTextFields = false;

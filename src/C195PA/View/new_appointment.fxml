@@ -29,7 +29,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Update Appointment">
+            <Label text="New Appointment">
                <font>
                   <Font size="18.0" />
                </font>

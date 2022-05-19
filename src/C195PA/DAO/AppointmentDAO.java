@@ -74,7 +74,6 @@ public class AppointmentDAO {
                         appointmentResults.getInt("customer_id"),
                         appointmentResults.getInt("contact_id"),
                         appointmentResults.getInt("user_id"));
-                System.out.println(appointmentResults.getTimestamp("start").toLocalDateTime());
                 allAppointments.add(appointment);
             }
 
@@ -88,7 +87,6 @@ public class AppointmentDAO {
      * @param appointment the appointment object to save to the database
      * */
     public static void createAppointment(Appointment appointment){
-        System.out.println("HERE --->>> " + appointment.getStartTime());
         String createAppointmentQuery =
                 "INSERT INTO Appointments(" +
                         "title," +
@@ -131,7 +129,6 @@ public class AppointmentDAO {
                         "user_id = \"" + appointment.getUserId()+ "\",\n" +
                         "customer_id = " + appointment.getCustomerId()+ " " +
                         "WHERE Appointment_id = " + appointment.getAppointmentId() +";";
-        System.out.println(updateAppointmentQuery);
         makeQuery(updateAppointmentQuery);
     }
 

@@ -23,10 +23,7 @@ import java.util.ResourceBundle;
 import static C195PA.DAO.AppointmentDAO.*;
 import static C195PA.DAO.ContactDAO.getAllContacts;
 
-public class AppointmentController extends HeaderController implements Initializable {
-
-    public Label loggedInLabel;
-    public Label timeLabel;
+public class AppointmentController extends ApplicationController implements Initializable {
 
     public TextField appointmentId ;
     public TextField appointmentTitle ;
@@ -58,6 +55,9 @@ public class AppointmentController extends HeaderController implements Initializ
     public ObservableList<Appointment> allAppointments;
     Appointment appointment;
 
+    /**
+     * Initializes the appointment pages with the needed information and calls to the ApplicationController method
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allAppointments = getAllAppointments();
@@ -98,25 +98,13 @@ public class AppointmentController extends HeaderController implements Initializ
 
     }
 
-    public void toMain(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/main.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
-    }
-
     public void cancelAppointment(ActionEvent event){
         Alert cancelAlert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to cancel without saving?");
-        try {
-            Optional<ButtonType> userInput = cancelAlert.showAndWait();
-            if (userInput.isPresent() && userInput.get() == ButtonType.OK) {
-                toMain(event);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        Optional<ButtonType> userInput = cancelAlert.showAndWait();
+        if (userInput.isPresent() && userInput.get() == ButtonType.OK) {
+            toMain(event);
         }
+
     }
 
     public void saveAppointment(boolean newAppointment, ActionEvent event){
@@ -138,20 +126,12 @@ public class AppointmentController extends HeaderController implements Initializ
                     );
                     if (newAppointment) {
                         createAppointment(appointment);
-                        try {
-                            toMain(event);
-                        } catch (IOException ioe) {
-                            ioe.printStackTrace();
-                        }
+                        toMain(event);
                     } else {
                         appointment.setAppointmentId(Integer.parseInt(appointmentId.getText()));
                         System.out.println("Saving Appointment " + appointmentId.getText());
                         updateAppointment(appointment);
-                        try {
-                            toMain(event);
-                        } catch (IOException ioe) {
-                            ioe.printStackTrace();
-                        }
+                        toMain(event);
                     }
                 } else {
                     Alert notBusinessHoursAlert = new Alert(Alert.AlertType.ERROR,
@@ -161,7 +141,6 @@ public class AppointmentController extends HeaderController implements Initializ
                     notBusinessHoursAlert.show();
                 }
             } else {
-                System.out.println("OVERLAPPPP" + allAppointments.get(overlap.getValue()).getTitle());
                 Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "This appointment overlaps with: " +
                         allAppointments.get(overlap.getValue()).getTitle() + ", ID: " +
                         allAppointments.get(overlap.getValue()).getAppointmentId() + ".");
@@ -286,7 +265,6 @@ public class AppointmentController extends HeaderController implements Initializ
         LocalDateTime localDate = appointmentStartDate.getValue().atTime(startHour, startMin);
         ZonedDateTime localZoneTime = localDate.atZone(ZoneId.systemDefault());
         ZonedDateTime utcStartTime = localZoneTime.withZoneSameInstant(ZoneId.of("UTC"));
-        System.out.println(localZoneTime.format(DateTimeFormatter.ofPattern("MM/dd/YY\nhh:mm a")));
         LocalDateTime startTime = utcStartTime.toLocalDateTime();
         return startTime;
     }

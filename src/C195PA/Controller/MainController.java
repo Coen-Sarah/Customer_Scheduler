@@ -2,10 +2,6 @@ package C195PA.Controller;
 
 import C195PA.Model.Appointment;
 import C195PA.Model.Customer;
-import C195PA.Model.User;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,25 +13,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static C195PA.Controller.LoginController.getLoggedInUser;
 import static C195PA.DAO.AppointmentDAO.destroyAppointment;
 import static C195PA.DAO.AppointmentDAO.getAllAppointments;
 import static C195PA.DAO.CustomerDAO.destroyCustomer;
 import static C195PA.DAO.CustomerDAO.getAllCustomers;
 import static C195PA.DAO.UserDAO.getUser;
 
-public class MainController extends HeaderController implements Initializable {
+public class MainController extends ApplicationController implements Initializable {
 
     public TableView customerTable;
     public TableColumn customerId;
