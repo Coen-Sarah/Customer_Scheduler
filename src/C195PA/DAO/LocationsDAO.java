@@ -11,8 +11,15 @@ import java.sql.SQLException;
 import static C195PA.DAO.Query.getResult;
 import static C195PA.DAO.Query.makeQuery;
 
+/**
+ * Provides access to the database for location information
+ * */
 public class LocationsDAO {
 
+    /**
+     * @param countryID divisionId to search for a specific division object
+     * @return country returns a country object
+     * */
     public static Country getCountry(int countryID) {
         Country country;
         try {
@@ -30,6 +37,10 @@ public class LocationsDAO {
         }
 
     }
+
+    /**
+     * @return allCountries returns an ObservableList of all country objects
+     * */
     public static ObservableList<Country> getCountries(){
         ObservableList<Country> allCountries = FXCollections.observableArrayList();
         Country country;
@@ -48,6 +59,10 @@ public class LocationsDAO {
             }
         return allCountries;
     }
+    /**
+     * @param divisionID divisionId to search for a specific division object
+     * @return division returns a division object
+     * */
     public static Division getDivision(int divisionID) {
         Division division;
         try {
@@ -65,6 +80,9 @@ public class LocationsDAO {
             return null;
         }
     }
+    /**
+     * @return allDivision returns an ObservableList of all division objects
+     * */
     public static ObservableList<Division> getDivisions(){
         ObservableList<Division> allDivisions = FXCollections.observableArrayList();
         Division division;

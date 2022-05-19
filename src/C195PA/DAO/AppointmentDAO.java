@@ -84,6 +84,9 @@ public class AppointmentDAO {
 
         return allAppointments;
     }
+    /**
+     * @param appointment the appointment object to save to the database
+     * */
     public static void createAppointment(Appointment appointment){
         System.out.println("HERE --->>> " + appointment.getStartTime());
         String createAppointmentQuery =
@@ -143,6 +146,10 @@ public class AppointmentDAO {
         makeQuery(deleteAppointmentQuery);
     }
 
+    /**
+     * Saves relevant appointment data to a local file for use in report creation.
+     * @param appointment appointment to be saved for report
+     * */
     public static void reportDeletedAppointment(Appointment appointment){
         String appointmentDelete =
                 "Appointment:: " + appointment.getTitle() + "::ID::" + appointment.getAppointmentId() +

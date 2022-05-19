@@ -1,8 +1,6 @@
 package C195PA.Model;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -40,8 +38,19 @@ public class Appointment {
      * */
     LocalDateTime endTime;
 
+    /**
+     * The appointment customerId
+     * */
     int customerId;
+
+    /**
+     * The appointment contactId
+     * */
     int contactId;
+
+    /**
+     * The appointment userId
+     * */
     int userId;
 
     /**
@@ -68,8 +77,6 @@ public class Appointment {
         this.contactId = contactId;
         this.userId = userId;
     }
-
-
 
     /**
      * @return the appointmentID
@@ -169,30 +176,48 @@ public class Appointment {
         this.endTime = endTime;
     }
 
+    /**
+     * @return customerId the customerId;
+     * */
     public int getCustomerId() {
         return customerId;
     }
-
+    /**
+     * @param customerId sets the customerId
+     * */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
+    /**
+     * @return contactId the contactId;
+     * */
     public int getContactId() {
         return contactId;
     }
-
+    /**
+     * @param contactId sets the contactId
+     * */
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
 
+    /**
+     * @return userId the userId;
+     * */
     public int getUserId() {
         return userId;
     }
-
+    /**
+     * @param userId sets the userId
+     * */
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
+    /**
+     * @returns a full description of the appointment including the location and the type,
+     * */
     public String getFullDescription(){
         String fullDescription = "Description: " + description + "\n" +
                                  "Location: " + location + "\n" +
@@ -200,6 +225,10 @@ public class Appointment {
         return fullDescription;
 
     }
+
+    /**
+     * @return string that includeds all of the individuals associated with the appointment
+     * */
     public String getInviteList(){
         String inviteList = "Customer ID: " + customerId + "\n" +
                             "Contact ID: " + contactId + "\n" +
@@ -207,11 +236,17 @@ public class Appointment {
         return inviteList;
     }
 
+    /**
+     * @return the startTime as a formatted string
+     * */
     public String getFormattedStartTime(){
         String formattedStartTime = startTime.format(DateTimeFormatter.ofPattern("MM/dd/YY\nhh:mm a"));
 
         return formattedStartTime;
     }
+    /**
+     * @return the endTime as a formatted string
+     * */
     public String getFormattedEndTime(){
         String formattedEndTime = endTime.format(DateTimeFormatter.ofPattern("MM/dd/YY\nhh:mm a"));
 

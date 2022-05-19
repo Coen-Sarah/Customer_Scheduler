@@ -1,10 +1,25 @@
 package C195PA.Model;
 
+/**
+ * Provides access to the the company divisions and related information.
+ * */
 public class Division {
+    /**
+     * The division's id number
+     * */
     int divisionId;
+    /**
+     * The division's name
+     */
     String divisionName;
+    /**
+     * The division's country
+     * */
     int countryId;
 
+    /**
+     * Constructor to instantiate a Division object.
+     * */
     public Division(int divisionId, String divisionName,int countryId) {
         this.divisionId = divisionId;
         this.divisionName = divisionName;

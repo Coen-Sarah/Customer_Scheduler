@@ -47,6 +47,9 @@ public class Customer {
         this.country = country;
     }
 
+    /**
+     * Constructor to instantiate a Customer object without a customerId.
+     * */
     public Customer(String name, String address, String postalCode, String phone,Division division,Country country) {
         this.customerId = 0;
         this.name = name;
@@ -127,22 +130,37 @@ public class Customer {
         this.phone = phone;
     }
 
+    /**
+     * @return division the customer's first level division
+     * */
     public Division getDivision() {
         return division;
     }
 
+    /**
+     * @param division sets the customer's first level division
+     * */
     public void setDivision(Division division) {
         this.division = division;
     }
 
+    /**
+     * @return country the customer's country
+     * */
     public Country getCountry() {
         return country;
     }
 
+    /**
+     * @param country sets the customer's first level division
+     * */
     public void setCountry(Country country) {
         this.country = country;
     }
 
+    /**
+     * @return fullAddress the customer's full and formatted address including the division and country
+     * */
     public String getFullAddress(){
         return address + "\n" + division + " " + country;
     }

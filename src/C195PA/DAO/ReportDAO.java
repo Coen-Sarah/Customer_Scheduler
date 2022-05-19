@@ -1,6 +1,6 @@
 package C195PA.DAO;
 
-import C195PA.Model.Appointment;
+import C195PA.Model.ReportItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,8 +10,14 @@ import java.sql.SQLException;
 import static C195PA.DAO.Query.getResult;
 import static C195PA.DAO.Query.makeQuery;
 
+/**
+ * Provides access to the database for report creation
+ * */
 public class ReportDAO {
 
+    /**
+     * Queries the database for result's matching the report
+     * */
     public static ObservableList<ReportItem> getAppointmentReport(){
         ObservableList<ReportItem> report = FXCollections.observableArrayList();
 

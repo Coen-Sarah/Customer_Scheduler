@@ -12,6 +12,9 @@ import static C195PA.DAO.DBConnection.makeConnection;
 public class Main extends Application {
 
 
+    /**
+     * Launches the login page;
+     * */
     @Override
     public void start(Stage primaryStage) throws Exception{
     //TODO SWAP BACK AFTER TESTING
@@ -23,12 +26,12 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * Launches the entire application;
+     * */
     public static void main(String[] args) {
         try {
             makeConnection();
-
-
         }catch(Exception ex){
             ex.printStackTrace();
         }
