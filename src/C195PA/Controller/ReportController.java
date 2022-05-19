@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
@@ -21,10 +20,11 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-import static C195PA.DAO.AppointmentDAO.getAllAppointments;
 import static C195PA.DAO.ReportDAO.getAppointmentReport;
-import static C195PA.DAO.UserDAO.getUser;
 
+/**
+ * Provides creation and control of the reports page
+ * */
 public class ReportController extends ApplicationController implements Initializable {
 
     public TableView appointmentReport;
@@ -68,18 +68,22 @@ public class ReportController extends ApplicationController implements Initializ
 
     public ObservableList<ReportItem> reportItems = FXCollections.observableArrayList();
     public ObservableList<Appointment> canceledAppointmentsList = FXCollections.observableArrayList();
-    public ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
 
+    /**
+     * Initializes the Report page
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generateHeader();
-        allAppointments = getAllAppointments();
         initializeAppointmentReport();
         initializeContactSchedule();
         getCanceledAppointments();
 
     }
 
+    /**
+     * Initializes the first appointment report
+     * */
     private void initializeAppointmentReport() {
         reportItems = getAppointmentReport();
         System.out.println(reportItems.get(0).getMonth());
@@ -90,6 +94,9 @@ public class ReportController extends ApplicationController implements Initializ
 
     }
 
+    /**
+     * Initializes the contact schedules
+     * */
     private void initializeContactSchedule() {
         ObservableList<Appointment> contactOneSchedule = FXCollections.observableArrayList();
         ObservableList<Appointment> contactTwoSchedule = FXCollections.observableArrayList();
@@ -132,6 +139,9 @@ public class ReportController extends ApplicationController implements Initializ
 
     }
 
+    /**
+     * Retrieves the canceled appointments information
+     * */
     private void getCanceledAppointments() {
 
         try{

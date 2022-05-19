@@ -1,9 +1,12 @@
 package C195PA.Controller;
 
+import C195PA.Model.Appointment;
+import C195PA.Model.Customer;
 import C195PA.Model.User;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,8 +20,12 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static C195PA.DAO.AppointmentDAO.getAllAppointments;
+import static C195PA.DAO.CustomerDAO.getAllCustomers;
+
 /**
- * Provides generation methods for the header information to all Controller classes
+ * Provides access to shared methods between all controller classes
+ *
  * */
 public class ApplicationController {
 
@@ -27,12 +34,19 @@ public class ApplicationController {
     public Timeline clock;
     static User currentUser;
 
+    public ObservableList<Customer> allCustomers;
+    public ObservableList<Appointment> allAppointments;
+
     /**
-     * Fills the App Header with the header information
+     * Fills the App Header with the header information and defines application wide variables
      * */
     void generateHeader(){
         generateClock();
         generateHeaderLabels();
+
+        allCustomers = getAllCustomers();
+        allAppointments = getAllAppointments();
+
     }
 
     /**

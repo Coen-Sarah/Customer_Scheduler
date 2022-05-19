@@ -24,6 +24,9 @@ import static C195PA.DAO.CustomerDAO.updateCustomer;
 import static C195PA.DAO.LocationsDAO.getCountries;
 import static C195PA.DAO.LocationsDAO.getDivisions;
 
+/**
+ * Provides shared methods between the Add and Update customer pages
+ * */
 public class CustomerController extends ApplicationController implements Initializable {
 
     public TextField customerId;
@@ -40,6 +43,9 @@ public class CustomerController extends ApplicationController implements Initial
     public ObservableList<Country> allCountries;
     public ObservableList<Division> allDivisions;
 
+    /**
+     * Initializes the customer pages with then needed information
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generateHeader();
@@ -52,6 +58,9 @@ public class CustomerController extends ApplicationController implements Initial
 
     }
 
+    /**
+     * Determines which divisions should be visible upon a user selecting a country
+     * */
     void determineDivisions() {
         Country selectedCountry = (Country) customerCountry.getSelectionModel().getSelectedItem();
         allDivisions = getDivisions();
@@ -60,6 +69,9 @@ public class CustomerController extends ApplicationController implements Initial
         customerDivision.setItems(selectedDivisions);
     }
 
+    /**
+     * Allows the user to return to the main page without saving
+     * */
     public void cancelCustomer(ActionEvent event){
         Alert cancelAlert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to cancel without saving?");
 
@@ -68,7 +80,9 @@ public class CustomerController extends ApplicationController implements Initial
             toMain(event);
         }
     }
-
+    /**
+     * Allows the user to save the customer to the database
+     * */
     public void saveCustomer(boolean newCustomer,ActionEvent event) {
         if (allValidTextFields()) {
             Division division = (Division) customerDivision.getSelectionModel().getSelectedItem();
@@ -90,7 +104,9 @@ public class CustomerController extends ApplicationController implements Initial
             }
         }
     }
-
+    /**
+     * Ensures that all of the form fields have valid information prior to saving
+     * */
     private boolean allValidTextFields() {
         boolean allValidTextFields = true;
         String allTextInput[] = new String[4];

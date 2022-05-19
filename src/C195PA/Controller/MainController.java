@@ -26,8 +26,10 @@ import static C195PA.DAO.AppointmentDAO.destroyAppointment;
 import static C195PA.DAO.AppointmentDAO.getAllAppointments;
 import static C195PA.DAO.CustomerDAO.destroyCustomer;
 import static C195PA.DAO.CustomerDAO.getAllCustomers;
-import static C195PA.DAO.UserDAO.getUser;
 
+/**
+ * Provides creation and control of the Main Page
+ * */
 public class MainController extends ApplicationController implements Initializable {
 
     public TableView customerTable;
@@ -50,22 +52,25 @@ public class MainController extends ApplicationController implements Initializab
     public TableColumn appointmentStart;
     public TableColumn appointmentEnd;
 
-    public ObservableList<Appointment> allAppointments;
-    public ObservableList<Customer> allCustomers;
     public static Customer selectedCustomer;
     public static Appointment selectedAppointment;
 
+    /**
+     * Initializes the Main Page
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generateHeader();
-        allCustomers = getAllCustomers();
-        allAppointments = getAllAppointments();
-
         initializeTables();
         checkUpcomingAppointments();
 
     }
 
+// METHODS RELATING TO THE TABLES
+
+    /**
+     * Initializes the appointmentTable and customerTable
+     * */
     private void initializeTables() {
         customerTable.setItems(allCustomers);
         customerId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -83,6 +88,49 @@ public class MainController extends ApplicationController implements Initializab
         appointmentEnd.setCellValueFactory(new PropertyValueFactory<>("formattedEndTime"));
     }
 
+    /**
+     * Sets the appointmentTable to show all upcoming appointments in the next week
+     * */
+    public void viewWeeksAppointments(ActionEvent event){
+        ObservableList thisWeeksAppointments = FXCollections.observableArrayList();
+        for(int i = 0; i < allAppointments.size();i++){
+            LocalDate today = LocalDate.now();
+            LocalDate endOfWeek = today.plusDays(7);
+            LocalDate appointmentDate = allAppointments.get(i).getStartTime().toLocalDate();
+            if((appointmentDate.isAfter(today) || appointmentDate.isEqual(today))&&
+                    (appointmentDate.isBefore(endOfWeek) || appointmentDate.isEqual(endOfWeek))){
+                thisWeeksAppointments.add(allAppointments.get(i));
+            }
+        }
+        appointmentTable.setItems(thisWeeksAppointments);
+    }
+
+    /**
+     * Sets the appointmentTable to show all upcoming appointments this month
+     * */
+    public void viewMonthsAppointments(ActionEvent event){
+        ObservableList thisMonthsAppointments = FXCollections.observableArrayList();
+        for(int i = 0; i < allAppointments.size();i++){
+            LocalDate today = LocalDate.now();
+            LocalDate appointmentDate = allAppointments.get(i).getStartTime().toLocalDate();
+            if((appointmentDate.isAfter(today ) && appointmentDate.getMonth() == today.getMonth())){
+                thisMonthsAppointments.add(allAppointments.get(i));
+            }
+        }
+        appointmentTable.setItems(thisMonthsAppointments);
+    }
+
+    /**
+     * Sets the appointmentTable to show all appointments
+     * */
+    public void viewAllAppointments(ActionEvent event){
+        appointmentTable.setItems(allAppointments);
+    }
+
+//METHOD RELATING TO THE NOTIFICATION BAR
+    /**
+     * Checks if the logged in user has any appointments within the next 15 minutes and sets the appropriate message to the notification bar.
+     * */
     private void checkUpcomingAppointments() {
         String appointmentNotice = "";
         LocalDateTime currentTime = LocalDateTime.now();
@@ -104,6 +152,11 @@ public class MainController extends ApplicationController implements Initializab
         notificationsLabel.setText(appointmentNotice);
     }
 
+//NAVIGATION METHODS
+
+    /**
+     * Takes the user to the "Add Customer" page
+     * */
     public void addCustomer(ActionEvent event){
 
         try {
@@ -118,6 +171,9 @@ public class MainController extends ApplicationController implements Initializab
         }
     }
 
+    /**
+     * Takes the user to the "Update Customer" page
+     * */
     public void modifyCustomer(ActionEvent event){
         try{
             selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
@@ -137,6 +193,67 @@ public class MainController extends ApplicationController implements Initializab
         }
     }
 
+    /**
+     * Takes the user to the "Update Appointment" page
+     * */
+    public void modifyAppointment(ActionEvent event) {
+        try{
+            selectedAppointment = (Appointment) appointmentTable.getSelectionModel().getSelectedItem();
+            if(allAppointments.contains(selectedAppointment)) {
+                Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/modify_appointment.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+
+                stage.setScene(scene);
+                stage.show();
+            }else {
+                Alert alert = new Alert(Alert.AlertType.ERROR,"Please select an appointment to modify.");
+                alert.show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Takes the user to the "Add Appointment" page
+     * */
+    public void addAppointment(ActionEvent event) {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/new_appointment.fxml"));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Takes the user to the "Reports" page
+     * */
+    public void toReport(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/report.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch( IOException ioe){
+            ioe.printStackTrace();
+        }
+    }
+
+//METHODS FOR DELETING INFORMATION
+
+    /**
+     * Allows a user to delete a customer and if applicable any of that customer's appointments
+     * */
     public void deleteCustomer(ActionEvent event) {
 
         selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
@@ -174,6 +291,9 @@ public class MainController extends ApplicationController implements Initializab
 
     }
 
+    /**
+     * Checks to see if a customer has any appointment
+     * */
     private ObservableList<Appointment> checkCustomerAppointments() {
         ObservableList customerAppointments = FXCollections.observableArrayList();
         for(int i = 0; i < allAppointments.size(); i++){
@@ -184,55 +304,18 @@ public class MainController extends ApplicationController implements Initializab
         return customerAppointments;
     }
 
-    public static Customer getSelectedCustomer() {
-        return selectedCustomer;
-    }
-
-    public static Appointment getSelectedAppointment(){
-        return selectedAppointment;
-    }
-
-    public void modifyAppointment(ActionEvent event) {
-        try{
-            selectedAppointment = (Appointment) appointmentTable.getSelectionModel().getSelectedItem();
-            if(allAppointments.contains(selectedAppointment)) {
-                Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/modify_appointment.fxml"));
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-
-                stage.setScene(scene);
-                stage.show();
-            }else {
-                Alert alert = new Alert(Alert.AlertType.ERROR,"Please select an appointment to modify.");
-                alert.show();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addAppointment(ActionEvent event) {
-
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/new_appointment.fxml"));
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
+    /**
+     * Deletes multiple appointments at once
+     * */
     public void deleteMultipleAppointments(ObservableList<Appointment> appointmentList){
-            int listSize = appointmentList.size();
-            for(int i = 0; i < listSize; i++){
-                destroyAppointment(appointmentList.get(i));
-            }
+        int listSize = appointmentList.size();
+        for(int i = 0; i < listSize; i++){
+            destroyAppointment(appointmentList.get(i));
+        }
     }
-
+    /**
+     * Allows a user to delete an appointment
+     * */
     public void deleteAppointment(ActionEvent event) {
         Appointment selectedAppointment = (Appointment) appointmentTable.getSelectionModel().getSelectedItem();
 
@@ -252,46 +335,20 @@ public class MainController extends ApplicationController implements Initializab
         }
     }
 
-    public void viewWeeksAppointments(ActionEvent event){
-        ObservableList thisWeeksAppointments = FXCollections.observableArrayList();
-            for(int i = 0; i < allAppointments.size();i++){
-                LocalDate today = LocalDate.now();
-                LocalDate endOfWeek = today.plusDays(7);
-                LocalDate appointmentDate = allAppointments.get(i).getStartTime().toLocalDate();
-                if((appointmentDate.isAfter(today) || appointmentDate.isEqual(today))&&
-                        (appointmentDate.isBefore(endOfWeek) || appointmentDate.isEqual(endOfWeek))){
-                    thisWeeksAppointments.add(allAppointments.get(i));
-                }
-            }
-        appointmentTable.setItems(thisWeeksAppointments);
+// METHODS FOR GETTING STATIC VARIABLES
+
+    /**
+     * @return selectedCustomer the currently selected customer
+     * */
+    public static Customer getSelectedCustomer() {
+        return selectedCustomer;
     }
 
-    public void viewMonthsAppointments(ActionEvent event){
-        ObservableList thisMonthsAppointments = FXCollections.observableArrayList();
-        for(int i = 0; i < allAppointments.size();i++){
-            LocalDate today = LocalDate.now();
-            LocalDate appointmentDate = allAppointments.get(i).getStartTime().toLocalDate();
-            if((appointmentDate.isAfter(today ) && appointmentDate.getMonth() == today.getMonth())){
-                thisMonthsAppointments.add(allAppointments.get(i));
-            }
-        }
-        appointmentTable.setItems(thisMonthsAppointments);
+    /**
+     * @return selectedAppointment the currently selected appointment
+     * */
+    public static Appointment getSelectedAppointment(){
+        return selectedAppointment;
     }
 
-    public void viewAllAppointments(ActionEvent event){
-        appointmentTable.setItems(allAppointments);
-    }
-
-    public void toReport(ActionEvent event){
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/report.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-
-            stage.setScene(scene);
-            stage.show();
-        } catch( IOException ioe){
-            ioe.printStackTrace();
-        }
-    }
 }

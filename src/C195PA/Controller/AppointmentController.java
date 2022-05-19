@@ -2,27 +2,22 @@ package C195PA.Controller;
 
 import C195PA.Model.Appointment;
 import C195PA.Model.Contact;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static C195PA.DAO.AppointmentDAO.*;
 import static C195PA.DAO.ContactDAO.getAllContacts;
 
+/**
+ * Provides the shared methods between the Add and Update appointment pages.
+ * */
 public class AppointmentController extends ApplicationController implements Initializable {
 
     public TextField appointmentId ;
@@ -46,13 +41,6 @@ public class AppointmentController extends ApplicationController implements Init
 
     public Button saveButton;
     public Button cancelButton;
-
-    int hourMax = 12;
-    int minMax = 60;
-
-    final DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/DD/YYYY HH:mm ZZ");
-
-    public ObservableList<Appointment> allAppointments;
     Appointment appointment;
 
     /**
@@ -60,15 +48,20 @@ public class AppointmentController extends ApplicationController implements Init
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        allAppointments = getAllAppointments();
         generateHeader();
         appointmentId.setText("Auto-Generated");
         appointmentId.setDisable(true);
-        setTimeComboBoxes();
+        setComboBoxes();
 
     }
 
-    private void setTimeComboBoxes() {
+    /**
+     * Initializes the contact, hours, minutes and (am/pm) comboBoxes;
+     * */
+    private void setComboBoxes() {
+        int hourMax = 12;
+        int minMax = 60;
+
         for(int i = 0; i < hourMax; i++){
             appointmentStartTimeHr.getItems().add(i+1);
             appointmentEndTimeHr.getItems().add(i+1);
@@ -98,6 +91,9 @@ public class AppointmentController extends ApplicationController implements Init
 
     }
 
+    /**
+     * Allows the user to return to the main page without saving
+     * */
     public void cancelAppointment(ActionEvent event){
         Alert cancelAlert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to cancel without saving?");
         Optional<ButtonType> userInput = cancelAlert.showAndWait();
@@ -107,6 +103,9 @@ public class AppointmentController extends ApplicationController implements Init
 
     }
 
+    /**
+     * Allows the user to save an appointment to the database
+     * */
     public void saveAppointment(boolean newAppointment, ActionEvent event){
         if(checkTextFields()) {
             Pair<Boolean, Integer> overlap = checkAppointmentOverlap();
@@ -149,6 +148,9 @@ public class AppointmentController extends ApplicationController implements Init
         }
     }
 
+    /**
+     * Ensures that all form fields are valid prior to saving
+     * */
     private boolean checkTextFields() {
         boolean allValidTextFields = true;
         String allTextInput[] = new String[4];
@@ -195,7 +197,9 @@ public class AppointmentController extends ApplicationController implements Init
         return allValidTextFields;
     }
 
-
+    /**
+     * Checks if the appointment is scheduled for within business hours
+     * */
     private boolean checkBusinessHours() {
         boolean isInBusinessHours = true;
         ZonedDateTime startESTTime = getStartTime().atZone(ZoneId.of("America/New_York"));
@@ -217,6 +221,9 @@ public class AppointmentController extends ApplicationController implements Init
 
     }
 
+    /**
+     * Checks if the appointment overlaps with any other appointments
+     * */
     private Pair<Boolean, Integer> checkAppointmentOverlap() {
         LocalDateTime startTime = getStartTime();
         LocalDateTime endTime = getEndTime();
@@ -251,6 +258,9 @@ public class AppointmentController extends ApplicationController implements Init
 
     }
 
+    /**
+     * @return the start time the user input as a UTC LocalDateTime
+     * */
     public LocalDateTime getStartTime(){
         int startHour = (int) appointmentStartTimeHr.getSelectionModel().getSelectedItem();
         int startMin = (int) appointmentStartTimeMin.getSelectionModel().getSelectedItem();
@@ -269,6 +279,9 @@ public class AppointmentController extends ApplicationController implements Init
         return startTime;
     }
 
+    /**
+     * @return the end time the user input as a UTC LocalDateTime
+     * */
     public LocalDateTime getEndTime(){
         int endHour = (int) appointmentEndTimeHr.getSelectionModel().getSelectedItem();
         int endMin = (int) appointmentEndTimeMin.getSelectionModel().getSelectedItem();
