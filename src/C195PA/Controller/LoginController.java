@@ -87,7 +87,7 @@ public class LoginController extends ApplicationController implements Initializa
 
         System.out.println(loginAttempt);
         try{
-            File file = new File("loginAttempts.txt");
+            File file = new File("login_activity.txt");
             if (file.createNewFile()){}
             PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
             out.println(loginAttempt);

@@ -51,15 +51,17 @@ public class ApplicationController {
 
     /**
      * Adds the Clock to the header
+     * The lambda expression within the generateClock method creates a live and updating clock to display in the header of the application.
+     * The Timeline clock is constructed using two Keyframes, the first has the lamba expression.
+     * It sets the variable e equal to timeLabel.setText(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/YYYY hh:mm a ZZZZ"))))
+     * and allows e to be used as the String parameter within the KeyFrame that makes up the Timeline clock. The second Keyframe only includes a
+     * duration of one second and by having the Timeline move through those two KeyFrames on a loop it creates a live clock.
      * */
     void generateClock(){
-        //TODO CITE: https://stackoverflow.com/questions/42383857/javafx-live-time-and-date
-        //TODO LAMBA DOCUMENTAION FOR CLOCK
+        //Clock code derived from Shekhar Rai's code at: https://stackoverflow.com/questions/42383857/javafx-live-time-and-date
         clock = new Timeline(new KeyFrame(Duration.ZERO, e ->
-                timeLabel.setText(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/YYYY hh:mm a ZZZZ")))
-        ),
-                new KeyFrame(Duration.seconds(1))
-        );
+                timeLabel.setText(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/YYYY hh:mm a ZZZZ")))),
+                new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
     }

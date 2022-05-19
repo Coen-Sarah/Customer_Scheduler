@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 import static C195PA.DAO.AppointmentDAO.*;
 import static C195PA.DAO.ContactDAO.getAllContacts;
+import static C195PA.DAO.UserDAO.getAllUsers;
 
 /**
  * Provides the shared methods between the Add and Update appointment pages.
@@ -161,9 +162,32 @@ public class AppointmentController extends ApplicationController implements Init
                     appointmentLocation.getText(),
                     appointmentType.getText()
             };
-            Integer.valueOf(customerId.getText());
+            int customerIdTemp = Integer.valueOf(customerId.getText());
             ((Contact) contactComboBox.getSelectionModel().getSelectedItem()).getContactId();
-            Integer.valueOf(userId.getText());
+            int userIdTemp = Integer.valueOf(userId.getText());
+
+            boolean validCustomerId = false;
+            boolean validUserId = false;
+
+            for(int i = 0; i < allCustomers.size(); i++){
+                if(customerIdTemp == allCustomers.get(i).getCustomerId()){
+                    validCustomerId = true;
+                    break;
+                }
+            }
+
+            for(int i = 0; i < getAllUsers().size(); i++){
+                if(userIdTemp == getAllUsers().get(i).getUserId()){
+                    validUserId = true;
+                    break;
+                }
+            }
+
+            if(!validCustomerId || !validUserId ){
+                Alert invalidIdAlert = new Alert(Alert.AlertType.ERROR, "Please ensure that Customer ID and User ID are valid IDs.");
+                invalidIdAlert.show();
+                return false;
+            }
         } catch (NumberFormatException numE) {
             Alert numberAlert = new Alert(Alert.AlertType.ERROR, "Please ensure that the Customer ID and User ID are numbers.");
             numberAlert.show();

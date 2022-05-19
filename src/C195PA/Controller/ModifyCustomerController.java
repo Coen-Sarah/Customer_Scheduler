@@ -16,6 +16,10 @@ public class ModifyCustomerController extends CustomerController {
 
     /**
      * Initializes the Update Customer page and sets the saveButton action.
+     * This method uses a lambda within the setOnAction method when it's applied to the saveButton. It allows for the
+     * saveCustomer method from the CustomerController super class to be called with an additional boolean parameter
+     * that states if an appointment is a new customer (true) or is an updated customer (false). This improves the the code
+     * because the FXML onclick attribute can't be used on a method that has a parameter list other than (ActionEvent event).
      * */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url,resourceBundle);

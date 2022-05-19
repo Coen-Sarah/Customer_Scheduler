@@ -142,7 +142,7 @@ public class MainController extends ApplicationController implements Initializab
                         (appointmentDateTime.isBefore(upcomingTime) || appointmentDateTime.isEqual(upcomingTime))) {
                     appointmentNotice += "Your appointment " + allAppointments.get(i).getTitle() + ", ID: " +
                             allAppointments.get(i).getAppointmentId() + ", starts at " +
-                            allAppointments.get(i).getStartTime().format(DateTimeFormatter.ofPattern("MM/dd/YY hh:mm a"));
+                            allAppointments.get(i).getStartTime().format(DateTimeFormatter.ofPattern("hh:mm a"));
                 }
             }
         }

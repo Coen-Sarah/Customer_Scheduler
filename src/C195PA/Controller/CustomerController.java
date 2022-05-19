@@ -45,13 +45,14 @@ public class CustomerController extends ApplicationController implements Initial
 
     /**
      * Initializes the customer pages with then needed information
+     * The lambda this method includes sets the onAction listener for the CustomerCountry
+     * drop down to the determineDivision method.
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generateHeader();
         allCountries = getCountries();
         customerCountry.setItems(allCountries);
-
         customerCountry.setOnAction( e -> {
             determineDivisions();
         });
@@ -60,6 +61,9 @@ public class CustomerController extends ApplicationController implements Initial
 
     /**
      * Determines which divisions should be visible upon a user selecting a country
+     * This method uses a lambda that allows for a FilteredList to be made from the allDivisions ObservableList.
+     * it takes division as the parameter and searches through the allDivisions list and only returns divisions with
+     * a countryID that matches the selectedCountry's ID.
      * */
     void determineDivisions() {
         Country selectedCountry = (Country) customerCountry.getSelectionModel().getSelectedItem();

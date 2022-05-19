@@ -18,7 +18,6 @@ public class Main extends Application {
      * */
     @Override
     public void start(Stage primaryStage) throws Exception{
-    //TODO SWAP BACK AFTER TESTING
 
         Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/login.fxml"));
 

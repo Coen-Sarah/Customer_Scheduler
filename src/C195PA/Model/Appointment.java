@@ -216,7 +216,7 @@ public class Appointment {
     }
 
     /**
-     * @returns a full description of the appointment including the location and the type,
+     * @return a full description of the appointment including the location and the type,
      * */
     public String getFullDescription(){
         String fullDescription = "Description: " + description + "\n" +
