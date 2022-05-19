@@ -2,6 +2,7 @@ package C195PA.Controller;
 
 import C195PA.Model.Appointment;
 import C195PA.Model.Contact;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,8 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static C195PA.DAO.AppointmentDAO.createAppointment;
-import static C195PA.DAO.AppointmentDAO.updateAppointment;
+import static C195PA.DAO.AppointmentDAO.*;
 import static C195PA.DAO.ContactDAO.getAllContacts;
 
 public class AppointmentController extends HeaderController implements Initializable {
@@ -57,10 +58,12 @@ public class AppointmentController extends HeaderController implements Initializ
 
     final DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("MM/DD/YYYY HH:mm ZZ");
 
+    public ObservableList<Appointment> allAppointments;
     Appointment appointment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        allAppointments = getAllAppointments();
         generateHeader();
         appointmentId.setText("Auto-Generated");
         appointmentId.setDisable(true);
@@ -120,30 +123,70 @@ public class AppointmentController extends HeaderController implements Initializ
     }
 
     public void saveAppointment(boolean newAppointment, ActionEvent event){
-
-        appointment = new Appointment(
-                0,
-                appointmentTitle.getText(),
-                appointmentDescription.getText(),
-                appointmentLocation.getText(),
-                appointmentType.getText(),
-                getStartTime(),
-                getEndTime(),
-                Integer.valueOf(customerId.getText()),
-                ((Contact)contactComboBox.getSelectionModel().getSelectedItem()).getContactId(),
-                Integer.valueOf(userId.getText())
-        );
-        if(newAppointment) {
-            createAppointment(appointment);
-            try{ toMain(event);}
-            catch(IOException ioe){ioe.printStackTrace();}
-        }else{
-            appointment.setAppointmentId(Integer.parseInt(appointmentId.getText()));
-            System.out.println("Saving Appointment " + appointmentId.getText() );
-            updateAppointment(appointment);
-            try{ toMain(event);}
-            catch(IOException ioe){ioe.printStackTrace();}
+        Pair<Boolean, Integer> overlap = checkAppointmentOverlap();
+        if(!overlap.getKey()) {
+            appointment = new Appointment(
+                    0,
+                    appointmentTitle.getText(),
+                    appointmentDescription.getText(),
+                    appointmentLocation.getText(),
+                    appointmentType.getText(),
+                    getStartTime(),
+                    getEndTime(),
+                    Integer.valueOf(customerId.getText()),
+                    ((Contact) contactComboBox.getSelectionModel().getSelectedItem()).getContactId(),
+                    Integer.valueOf(userId.getText())
+            );
+            if (newAppointment) {
+                createAppointment(appointment);
+                try {
+                    toMain(event);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            } else {
+                appointment.setAppointmentId(Integer.parseInt(appointmentId.getText()));
+                System.out.println("Saving Appointment " + appointmentId.getText());
+                updateAppointment(appointment);
+                try {
+                    toMain(event);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+        } else {
+            System.out.println("OVERLAPPPP" + allAppointments.get(overlap.getValue()).getTitle());
+            Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "This appointment overlaps with: " +
+                    allAppointments.get(overlap.getValue()).getTitle() + ", ID: " +
+                    allAppointments.get(overlap.getValue()).getAppointmentId() + ".");
+            overlapAlert.show();
         }
+    }
+
+    private Pair<Boolean, Integer> checkAppointmentOverlap() {
+        LocalDateTime startTime = getStartTime();
+        LocalDateTime endTime = getEndTime();
+
+        for(int i = 0; i < allAppointments.size(); i++){
+            if(allAppointments.get(i).getCustomerId() == Integer.valueOf(customerId.getText())){
+                Appointment appointment = allAppointments.get(i);
+                LocalDateTime appointmentStart = appointment.getStartTime().atZone(ZoneId.systemDefault())
+                                                    .withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+                LocalDateTime appointmentEnd = appointment.getEndTime().atZone(ZoneId.systemDefault())
+                                                    .withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+                boolean doAppointmentsOverlap = false;
+                if(endTime.isBefore(appointmentStart) || startTime.isAfter(appointmentEnd))
+                {
+                    doAppointmentsOverlap = false;
+
+                }else{
+                    doAppointmentsOverlap = true;
+                    return new Pair<Boolean,Integer>(doAppointmentsOverlap, i);
+                }
+            }
+        }
+        return new Pair<Boolean, Integer>(false,0);
+
     }
 
     public LocalDateTime getStartTime(){
