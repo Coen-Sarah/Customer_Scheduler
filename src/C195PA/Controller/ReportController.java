@@ -148,12 +148,9 @@ public class ReportController extends ApplicationController implements Initializ
             File file = new File("canceledAppointments.txt");
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
-            while(line != null){
+            while(line.length() != 0){
              System.out.println(Arrays.toString(line.split("::")));
              String appointmentTextArray[] = line.split("::");
-             if(appointmentTextArray.length <= 1){
-                 break;
-             }
                 System.out.println("In report");
              canceledAppointmentsList.add(new Appointment(
                      Integer.parseInt(appointmentTextArray[3]),

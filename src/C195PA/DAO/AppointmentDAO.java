@@ -152,7 +152,7 @@ public class AppointmentDAO {
                 "Appointment:: " + appointment.getTitle() + "::ID::" + appointment.getAppointmentId() +
                 "::Description::" + appointment.getDescription() + " ::Start::" + appointment.getStartTime() +
                 "::End::" + appointment.getEndTime() + "::Customer ID::" + appointment.getCustomerId() +
-                "::Contact ID::" + appointment.getContactId() + "::User ID::" + appointment.getUserId() +"\n";
+                "::Contact ID::" + appointment.getContactId() + "::User ID::" + appointment.getUserId();
         try{
             File file = new File("canceledAppointments.txt");
             if (file.createNewFile()){}
