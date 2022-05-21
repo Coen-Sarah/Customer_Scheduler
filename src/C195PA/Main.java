@@ -1,7 +1,10 @@
 package C195PA;
 
+import C195PA.Controller.AppointmentController;
+import C195PA.Model.Appointment;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +23,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Parent root = FXMLLoader.load(getClass().getResource("/C195PA/View/login.fxml"));
-
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
@@ -40,7 +42,5 @@ public class Main extends Application {
 
         Platform.exit();
     }
-
-
 
 }

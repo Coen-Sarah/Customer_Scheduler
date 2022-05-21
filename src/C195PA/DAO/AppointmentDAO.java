@@ -7,6 +7,10 @@ import javafx.collections.ObservableList;
 import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import static C195PA.DAO.Query.getResult;
 import static C195PA.DAO.Query.makeQuery;
@@ -103,8 +107,8 @@ public class AppointmentDAO {
                         "\", \""+ appointment.getDescription() +
                         "\",\""+ appointment.getLocation() +
                         "\",\""+ appointment.getType() +
-                        "\",\""+ appointment.getStartTime() +
-                        "\",\""+ appointment.getEndTime() +
+                        "\",\""+ toUTCTime(appointment.getStartTime())+
+                        "\",\""+ toUTCTime(appointment.getEndTime()) +
                         "\",\""+ appointment.getContactId() +
                         "\",\""+ appointment.getCustomerId() +
                         "\","+ appointment.getUserId() +
@@ -113,6 +117,14 @@ public class AppointmentDAO {
         makeQuery(createAppointmentQuery);
 
     }
+
+    private static LocalDateTime toUTCTime(LocalDateTime time) {
+        ZonedDateTime localZoneTime = time.atZone(ZoneId.systemDefault());
+        ZonedDateTime utcTime = localZoneTime.withZoneSameInstant(ZoneId.of("UTC"));
+        LocalDateTime localDateTime = utcTime.toLocalDateTime();
+        return localDateTime;
+    }
+
     /**
      * Query's the database to update a appointment
      * */
@@ -123,8 +135,8 @@ public class AppointmentDAO {
                         "description = \""+appointment.getDescription()+ "\",\n" +
                         "location = \""+appointment.getLocation()+ "\",\n" +
                         "type = \"" + appointment.getType()+ "\",\n" +
-                        "start = \"" + appointment.getStartTime()+ "\",\n" +
-                        "end = \"" + appointment.getEndTime()+ "\",\n" +
+                        "start = \"" + toUTCTime(appointment.getStartTime())+ "\",\n" +
+                        "end = \"" + toUTCTime(appointment.getEndTime())+ "\",\n" +
                         "contact_id = \"" + appointment.getContactId()+ "\",\n" +
                         "user_id = \"" + appointment.getUserId()+ "\",\n" +
                         "customer_id = " + appointment.getCustomerId()+ " " +

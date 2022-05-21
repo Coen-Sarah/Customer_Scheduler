@@ -50,7 +50,7 @@ public class ModifyAppointmentController extends AppointmentController  {
         int startHour = localStartTime.getHour();
         int endHour = localEndTime.getHour();
 
-        if(startHour >= 11){
+        if(startHour > 12){
             startHour -= 12;
             appointmentStartTimeP.getSelectionModel().select(1);
         }else if(startHour == 0) {
@@ -60,7 +60,7 @@ public class ModifyAppointmentController extends AppointmentController  {
             appointmentStartTimeP.getSelectionModel().select(0);
         }
 
-        if(endHour >= 12){
+        if(endHour > 12){
             endHour -= 12;
             appointmentEndTimeP.getSelectionModel().select(1);
         } else if(endHour == 0) {

@@ -241,7 +241,6 @@ public class Appointment {
      * */
     public String getFormattedStartTime(){
         String formattedStartTime = startTime.format(DateTimeFormatter.ofPattern("MM/dd/YY\nhh:mm a"));
-
         return formattedStartTime;
     }
     /**
@@ -249,7 +248,6 @@ public class Appointment {
      * */
     public String getFormattedEndTime(){
         String formattedEndTime = endTime.format(DateTimeFormatter.ofPattern("MM/dd/YY\nhh:mm a"));
-
         return formattedEndTime;
     }
 }

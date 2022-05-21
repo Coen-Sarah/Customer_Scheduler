@@ -126,13 +126,13 @@ public class AppointmentController extends ApplicationController implements Init
                     );
                     if (newAppointment) {
                         createAppointment(appointment);
-                        toMain(event);
-                    } else {
+                    }
+                     else {
                         appointment.setAppointmentId(Integer.parseInt(appointmentId.getText()));
                         System.out.println("Saving Appointment " + appointmentId.getText());
                         updateAppointment(appointment);
-                        toMain(event);
                     }
+                        toMain(event);
                 } else {
                     Alert notBusinessHoursAlert = new Alert(Alert.AlertType.ERROR,
                             "This appointment is scheduled for outside of business hours\n " +
@@ -214,6 +214,7 @@ public class AppointmentController extends ApplicationController implements Init
                 invalidTimeAlert = new Alert(Alert.AlertType.ERROR, "Appointments can not be scheduled in the past.");
             }else{
                 invalidTimeAlert = new Alert(Alert.AlertType.ERROR, "Appointment end times must be after appointment start times.");
+                System.out.println(getStartTime() + " : " + getEndTime());
             }
             allValidTextFields = false;
             invalidTimeAlert.show();
@@ -226,14 +227,15 @@ public class AppointmentController extends ApplicationController implements Init
      * */
     private boolean checkBusinessHours() {
         boolean isInBusinessHours = true;
-        ZonedDateTime startESTTime = getStartTime().atZone(ZoneId.of("America/New_York"));
-        ZonedDateTime endESTTime = getStartTime().atZone(ZoneId.of("America/New_York"));
+        ZonedDateTime startESTTime = getStartTime().atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/New_York"));
+        ZonedDateTime endESTTime = getEndTime().atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/New_York"));
 
-        int startHr = 8;
-        int endHr = 22;
+        LocalTime startTime = LocalTime.of(8,0);
+        LocalTime endTime = LocalTime.of(22,0);
 
-        if(startHr <= startESTTime.getHour() && startESTTime.getHour() < endHr &&
-                startHr <= endESTTime.getHour() && endESTTime.getHour() < endHr){
+        if((startTime.isBefore(LocalTime.from(startESTTime)) || startTime.equals(LocalTime.from(startESTTime)))&& LocalTime.from(startESTTime).isBefore(endTime) &&
+                startTime.isBefore(LocalTime.from(endESTTime)) && (LocalTime.from(endESTTime).isBefore(endTime) || LocalTime.from(endESTTime).equals(endTime)))
+        {
             if((startESTTime.getDayOfWeek() == DayOfWeek.SATURDAY || startESTTime.getDayOfWeek() == DayOfWeek.SUNDAY) ||
                 (endESTTime.getDayOfWeek() == DayOfWeek.SATURDAY || endESTTime.getDayOfWeek() == DayOfWeek.SUNDAY)) {
                 isInBusinessHours = false;
@@ -289,30 +291,29 @@ public class AppointmentController extends ApplicationController implements Init
         int startHour = (int) appointmentStartTimeHr.getSelectionModel().getSelectedItem();
         int startMin = (int) appointmentStartTimeMin.getSelectionModel().getSelectedItem();
         int startP = appointmentStartTimeP.getSelectionModel().getSelectedIndex();
+        System.out.println(startP);
         if(startP == 1){
             System.out.println("PM");
             startHour += 12;
-        }else if(startHour == 12){
-            System.out.println("Midnight Local Time");
-            startHour = 0;
         }
         LocalDateTime localDate = appointmentStartDate.getValue().atTime(startHour, startMin);
-        ZonedDateTime localZoneTime = localDate.atZone(ZoneId.systemDefault());
-        ZonedDateTime utcStartTime = localZoneTime.withZoneSameInstant(ZoneId.of("UTC"));
-        LocalDateTime startTime = utcStartTime.toLocalDateTime();
-        return startTime;
+        return localDate;
     }
 
     /**
-     * @return the end time the user input as a UTC LocalDateTime
+     * @return the end time the user input as a LocalDateTime
      * */
     public LocalDateTime getEndTime(){
+
         int endHour = (int) appointmentEndTimeHr.getSelectionModel().getSelectedItem();
         int endMin = (int) appointmentEndTimeMin.getSelectionModel().getSelectedItem();
+        int endP = (int) appointmentEndTimeP.getSelectionModel().getSelectedIndex();
+        if(endP == 1){
+            System.out.println("PM");
+            endHour += 12;
+        }
+
         LocalDateTime localDate = appointmentEndDate.getValue().atTime(endHour, endMin);
-        ZonedDateTime localZoneTime = localDate.atZone(ZoneId.systemDefault());
-        ZonedDateTime utcEndTime = localZoneTime.withZoneSameInstant(ZoneId.of("UTC"));
-        LocalDateTime endTime = utcEndTime.toLocalDateTime();
-        return endTime;
+        return localDate;
     }
 }

@@ -36,6 +36,7 @@ public class ReportController extends ApplicationController implements Initializ
     public TableColumn oneAppointmentId;
     public TableColumn oneTitle;
     public TableColumn oneDescription;
+    public TableColumn oneType;
     public TableColumn oneCustomerId;
     public TableColumn oneStart;
     public TableColumn oneEnd;
@@ -44,6 +45,7 @@ public class ReportController extends ApplicationController implements Initializ
     public TableColumn twoAppointmentId;
     public TableColumn twoTitle;
     public TableColumn twoDescription;
+    public TableColumn twoType;
     public TableColumn twoCustomerId;
     public TableColumn twoStart;
     public TableColumn twoEnd;
@@ -52,6 +54,7 @@ public class ReportController extends ApplicationController implements Initializ
     public TableColumn threeAppointmentId;
     public TableColumn threeTitle;
     public TableColumn threeDescription;
+    public TableColumn threeType;
     public TableColumn threeCustomerId;
     public TableColumn threeStart;
     public TableColumn threeEnd;
@@ -116,6 +119,7 @@ public class ReportController extends ApplicationController implements Initializ
         oneAppointmentId.setCellValueFactory(new PropertyValueFactory("appointmentId"));
         oneTitle.setCellValueFactory(new PropertyValueFactory("title"));
         oneDescription.setCellValueFactory(new PropertyValueFactory("description"));
+        oneType.setCellValueFactory(new PropertyValueFactory("type"));
         oneCustomerId.setCellValueFactory(new PropertyValueFactory("customerId"));
         oneStart.setCellValueFactory(new PropertyValueFactory("startTime"));
         oneEnd.setCellValueFactory(new PropertyValueFactory("endTime"));
@@ -124,6 +128,7 @@ public class ReportController extends ApplicationController implements Initializ
         twoAppointmentId.setCellValueFactory(new PropertyValueFactory("appointmentId"));
         twoTitle.setCellValueFactory(new PropertyValueFactory("title"));
         twoDescription.setCellValueFactory(new PropertyValueFactory("description"));
+        twoType.setCellValueFactory(new PropertyValueFactory("type"));
         twoCustomerId.setCellValueFactory(new PropertyValueFactory("customerId"));
         twoStart.setCellValueFactory(new PropertyValueFactory("startTime"));
         twoEnd.setCellValueFactory(new PropertyValueFactory("endTime"));
@@ -132,6 +137,7 @@ public class ReportController extends ApplicationController implements Initializ
         threeAppointmentId.setCellValueFactory(new PropertyValueFactory("appointmentId"));
         threeTitle.setCellValueFactory(new PropertyValueFactory("title"));
         threeDescription.setCellValueFactory(new PropertyValueFactory("description"));
+        threeType.setCellValueFactory(new PropertyValueFactory("type"));
         threeCustomerId.setCellValueFactory(new PropertyValueFactory("customerId"));
         threeStart.setCellValueFactory(new PropertyValueFactory("startTime"));
         threeEnd.setCellValueFactory(new PropertyValueFactory("endTime"));

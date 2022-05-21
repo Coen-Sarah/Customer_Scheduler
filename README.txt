@@ -1,6 +1,8 @@
 Title:          Customer and Appointment Schedule Manager
 Author:         Sarah Coen
 Contact:        scoen6@wgu.edu
+Date:           Friday May 20 2022
+Purpose:        The application allows users to schedule appointments between company contacts and customers, and to generate reports based upon the information.
 
 Development Information
 
